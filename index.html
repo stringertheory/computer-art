@@ -1,14 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css">	
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Buttons/2.0.0/css/buttons.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     </head>
     <body>
 	<div id="wrap">
-	    <svg id="canvas"></svg>
+	    <svg id="nake-canvas"></svg>
+	    <button onclick="redraw_nake()" id="nake-button" class="button button-raised button-pill"><i class="fa fa-repeat"></i> Redraw</button>
+	    <svg id="noll-canvas"></svg>
+	    <button onclick="redraw_noll()" id="noll-button" class="button button-raised button-pill"><i class="fa fa-repeat"></i> Redraw</button>
+	    <svg id="nees-canvas"></svg>
+	    <button onclick="redraw_nees()" id="nees-button" class="button button-raised button-pill"><i class="fa fa-repeat"></i> Redraw</button>
 	</div>
 	<script type="text/javascript" src="js/nake.js"></script>
+	<script type="text/javascript" src="js/noll.js"></script>
+	<script type="text/javascript" src="js/nees.js"></script>
     </body>
 </html>
