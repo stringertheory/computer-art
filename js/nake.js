@@ -4,7 +4,7 @@ var N_Y = 10;
 var STROKE_WIDTH = 0.02;
 
 function random_color() {
-  var lightness = 30;
+  var lightness = 0;
   return Snap.rgb(
     255 - lightness * Math.random(),
     255 - lightness * Math.random(),
@@ -63,15 +63,40 @@ group.add(s.polyline(current_top.concat(current_bottom)).attr({
 
 console.log(group);
 group.attr({mask: outer});
+var group2 = group.clone();
 
 _.each(_.range(N_Y), function (y) {
+  var bbox = group[y].getBBox();
   var v_group = s.g();
-  _.each(_.range(1, 100), function (x) {
-    v_group.add(s.line((x + 2 * (Math.random() - 0.5)) * N_X / 100, 0, x * N_X / 100, N_Y).attr({
-      stroke: 'black',
-      strokeWidth: STROKE_WIDTH
-    }));
+  _.each(_.range(N_X), function (x) {
+    if (Math.random() < 0.15) {
+      _.each(_.range(20), function (i) {
+	v_group.add(s.line(x + Math.random(), bbox.y, x + Math.random(), bbox.y2).attr({
+	  stroke: 'black',
+	  strokeWidth: STROKE_WIDTH
+	}));
+      });
+    } else if (Math.random() < 0.15) {
+      _.each(_.range(20), function (i) {
+	var x0 = x + Math.random()
+	v_group.add(s.line(x0, bbox.y, x0, bbox.y2).attr({
+	  stroke: 'black',
+	  strokeWidth: STROKE_WIDTH
+	}));
+      });
+    }
   });
-  console.log(group[y]);
   v_group.attr({mask: group[y]});
+});
+
+_.each(_.range(1, N_Y), function (y) {
+  _.each(_.range(1, N_X), function (x) {
+    if (Math.random() < 0.1) {
+      s.circle(x, y, Math.random()).attr({
+	stroke: 'black',
+	strokeWidth: STROKE_WIDTH,
+	fill: 'none'
+      });
+    }    
+  });
 });
