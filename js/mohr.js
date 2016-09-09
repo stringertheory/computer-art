@@ -8,17 +8,14 @@ function redraw_mohr () {
   var BACK = 255;
   var FORE = 0;
   var OPACITY = 0.9;
-  var ANGLES = _.map([
-       0,
-      45,   45,   45,   45,
-     -45,  -45,  -45,  -45,
-      90,   90,
-     -90,  -90,
-     135,
-    -135
-  ], function (degrees) {
-    return degrees * (Math.PI / 180);
-  });
+  var ANGLES = {};
+  ANGLES[0] = [0, 45, -45, 90, 90, 90, -90, -90, -90, 135, -135];
+  ANGLES[45] = [0, 45, 45, -45, -45, -45, -45, 90, -90, 135, -135];
+  ANGLES[-45] = [0, -45, -45, 45, 45, 45, 45, -90, 90, -135, 135];
+  ANGLES[90] = [0, 0, 0, 45, -45, 90, -90, 135, -135];
+  ANGLES[-90] = [0, 0, 0, -45, 45, -90, 90, -135, 135];
+  ANGLES[135] = [0, 45, 45, 45, -45, -45, -45, 90, 90, -90, -90, 135, -135];
+  ANGLES[-135] = [0, -45, -45, -45, 45, 45, 45, -90, -90, 90, 90, -135, 135];
   
   var s = Snap(SVG_ID);
   s.clear();
@@ -43,15 +40,16 @@ function redraw_mohr () {
     while (!(x_ok)) {
       var y_ok = false;
       while (!(y_ok)) {
-	var angle_try = _.sample(ANGLES);
+	var angle_try = _.sample(ANGLES[angle]);
+	console.log(angle_try);
 	var r = R * (1 + Math.random())
-	var x_try = x + r * Math.cos(angle_try);
-	var y_try = y + r * Math.sin(angle_try);
+	var x_try = x + r * Math.cos(angle_try * Math.PI / 180);
+	var y_try = y + r * Math.sin(angle_try * Math.PI / 180);
 	var same = Math.abs(angle - angle_try) === 0;
 	if (!(same)) {
 	  width = STROKE_WIDTH * _.sample([1, 1, 1, 2, 2, 3]);
 	}
-	var opposite = Math.abs(angle - angle_try) === Math.PI;
+	var opposite = Math.abs(angle - angle_try) === 180;
 	y_ok = (!(opposite) && y_try >= (y_i + PAD) && y_try <= (y_i + 1 - PAD));
       }
       points.push({
