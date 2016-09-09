@@ -9,6 +9,8 @@
     </head>
     <body>
 	<div id="wrap">
+	    <svg id="mohr-canvas"></svg>
+	    <button onclick="redraw_mohr()" id="mohr-button" class="button button-raised"><i class="fa fa-repeat"></i> Redraw</button>
 	    <svg id="molnar-canvas"></svg>
 	    <button onclick="redraw_molnar()" id="molnar-button" class="button button-raised"><i class="fa fa-repeat"></i> Redraw</button>
 	    <svg id="nake-canvas"></svg>
@@ -18,9 +20,10 @@
 	    <svg id="nees-canvas"></svg>
 	    <button onclick="redraw_nees()" id="nees-button" class="button button-raised"><i class="fa fa-repeat"></i> Redraw</button>
 	</div>
-	<script type="text/javascript" src="js/nake.js"></script>
-	<script type="text/javascript" src="js/noll.js"></script>
-	<script type="text/javascript" src="js/nees.js"></script>
-	<script type="text/javascript" src="js/molnar.js"></script>
+	<!-- <script type="text/javascript" src="js/nake.js"></script>
+	     <script type="text/javascript" src="js/noll.js"></script>
+	     <script type="text/javascript" src="js/nees.js"></script>
+	     <script type="text/javascript" src="js/molnar.js"></script> -->
+	<script type="text/javascript" src="js/mohr.js"></script>
     </body>
 </html>
