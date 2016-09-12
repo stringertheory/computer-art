@@ -41,18 +41,16 @@ function redrawMolnar () {
       // 	fill: Snap.rgb(color, 255, 255)
       // }));
       if (Math.random() > p) {
-	                                                                                var line = s.line(x - 0.5, y + 0.5, x + 1.5, y + 0.5).attr({
-	                      stroke: 'black',
-	                      strokeWidth: STROKE_WIDTH
+	var line = s.line(x - 0.5, y + 0.5, x + 1.5, y + 0.5).attr({
+	  stroke: 'black',
+	  strokeWidth: STROKE_WIDTH
 	})
-	                                                                                line.transform(
-      	  Snap.format('r{angle},{x_center},{y_center}', {
-      	                        angle: 90 + (Math.random() - 0.5) * 135,
-	    // angle: 0,
-      	                        x_center: x + 0.5,
-      	                        y_center: y + 0.5
-      	  })
-	)
+	line.transform(Snap.format('r{angle},{x_center},{y_center}', {
+      	  angle: 90 + (Math.random() - 0.5) * 135,
+	  // angle: 0,
+      	  x_center: x + 0.5,
+      	  y_center: y + 0.5
+      	}))
       }
     })
   })
