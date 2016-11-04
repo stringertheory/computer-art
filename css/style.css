@@ -13,6 +13,7 @@ svg {
     border: 1px solid #eee;
     margin-top: 10px;
     margin-bottom: 10px;
+    mix-blend-mode: multiply;
 }
 .canvas-container {
     padding-bottom: 40px;
