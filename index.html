@@ -6,6 +6,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.2.1/chroma.min.js"></script>
     </head>
     <body>
 	<div id="wrap">
@@ -54,7 +55,12 @@
 		<svg id="ribbons-canvas"></svg>
 		<button onclick="redrawRibbons()" id="ribbons-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
 	    </div>
-            
+
+            <div class="canvas-container">
+		<svg id="quilt-canvas"></svg>
+		<button onclick="redrawQuilt()" id="quilt-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+	    </div>
+
 	</div>
 	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/nake.js" defer></script>
@@ -66,5 +72,6 @@
 	<script type="text/javascript" src="js/ibm.js" defer></script>
 	<script type="text/javascript" src="js/entropy.js" defer></script>
 	<script type="text/javascript" src="js/ribbons.js" defer></script>
+	<script type="text/javascript" src="js/quilt.js" defer></script>
     </body>
 </html>
