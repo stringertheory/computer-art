@@ -77,20 +77,27 @@
 		<button onclick="redrawKandinsky()" id="kandinsky-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
 		<button onclick="makePNG('kandinsky-canvas')" id="kandinsky-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
+
+            <div class="canvas-container">
+		<svg id="rand-canvas"></svg>
+		<button onclick="redrawRand()" id="rand-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('rand-canvas')" id="rand-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
+	    </div>
             
 	</div>
 	<script type="text/javascript" src="js/svg_todataurl.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
-	<script type="text/javascript" src="js/nake.js" defer></script>
-	<script type="text/javascript" src="js/nees.js" defer></script>
-	<script type="text/javascript" src="js/noll.js" defer></script>
-	<script type="text/javascript" src="js/mohr.js" defer></script>
-	<script type="text/javascript" src="js/molnar.js" defer></script>
-	<script type="text/javascript" src="js/boxes.js" defer></script>
-	<script type="text/javascript" src="js/ibm.js" defer></script>
-	<script type="text/javascript" src="js/entropy.js" defer></script>
-	<script type="text/javascript" src="js/ribbons.js" defer></script>
-	<script type="text/javascript" src="js/quilt.js" defer></script>
-	<script type="text/javascript" src="js/kandinsky.js" defer></script>
+	<!-- <script type="text/javascript" src="js/nake.js" defer></script>
+	     <script type="text/javascript" src="js/nees.js" defer></script>
+	     <script type="text/javascript" src="js/noll.js" defer></script>
+	     <script type="text/javascript" src="js/mohr.js" defer></script>
+	     <script type="text/javascript" src="js/molnar.js" defer></script>
+	     <script type="text/javascript" src="js/boxes.js" defer></script>
+	     <script type="text/javascript" src="js/ibm.js" defer></script>
+	     <script type="text/javascript" src="js/entropy.js" defer></script>
+	     <script type="text/javascript" src="js/ribbons.js" defer></script>
+	     <script type="text/javascript" src="js/quilt.js" defer></script>
+	     <script type="text/javascript" src="js/kandinsky.js" defer></script> -->
+	<script type="text/javascript" src="js/rand.js" defer></script>
     </body>
 </html>
