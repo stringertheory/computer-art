@@ -33,37 +33,45 @@ function redrawRand () {
     fill: bgColor
   })
 
-  var text = 'Hello'
-  var xText = 1 + (N_X - 2) * Math.random()
-  var yText = 1 + (N_Y - 2) * Math.random()
-  console.log(xText, yText)
-  s.text(xText, yText, text).attr({
+  var textGroup = s.g()
+  var text = 'Hello World'
+  var textAttributes = {
     fill: Snap.rgb(230, 230, 230),
-    'font-size': 1,
-    'font-family': 'Adelle Sans'
+    'font-size': 1.5,
+    'font-family': 'Helvetica Neue',
+    'font-weight': 'light'
+    
+  }
+  var xText = 1 + 12 * Math.random()
+  var yText = N_Y - 10 - (N_Y - 10 - 12) * Math.random()
+  textGroup.add(s.text(xText, yText, text).attr(textAttributes).attr({
+    'font-weight': 'bold'
+  }))
+  var text = 'Special Issue'
+  textGroup.add(s.text(xText + 10, yText, text).attr(textAttributes))
+  var text = '30 Influential Coders'
+  yText += 2
+  textGroup.add(s.text(xText + 12, yText, text).attr(textAttributes))
+  var text = 'of the Century'
+  yText += 2
+  textGroup.add(s.text(xText + 8, yText, text).attr(textAttributes))
+  var maxRadius = 2
+  var textBBox = textGroup.getBBox()
+  var textBacker = s.rect(textBBox.x - 2 * maxRadius, textBBox.y - 2 * maxRadius, textBBox.width + 4 * maxRadius, textBBox.height + 4 * maxRadius).attr({
+    fill: 'none',
+    stroke: 'none',
+    strokeWidth: 0.5
   })
+  var backerBBox = textBacker.getBBox()
 
-  _.each(_.range(4, 40), function (y) {
-  var sigPoints = []
-  var charX = N_X - 6
-  var charY = y
-  _.each(_.range(5), function () {
-    _.each(_.range(5), function () {
-      var x = charX + Math.random()
-      var y = charY + Math.random()
-      sigPoints.push([x, y])
-    })
-    charX += 1
-  })
-  var path = convertToPath(sigPoints)
-  console.log(path)
-  var sig = s.path(path).attr({
-      fill: 'none',
-      stroke: 'white',
-      strokeWidth: 0.05
-    })
-  console.log('a', Snap.path.toCubic(path))
-  })
+        // textGroup.transform(
+        //   Snap.format('r{angle},{x_center},{y_center}', {
+        //     angle: 90,
+        //     x_center: N_X / 2,
+        //     y_center: N_Y / 2
+        //   })
+        // )
+  
   var sigPoints = []
   var charX = N_X - 6
   var charY = N_Y - 2
@@ -76,13 +84,11 @@ function redrawRand () {
     charX += 1
   })
   var path = convertToPath(sigPoints)
-  console.log(path)
   var sig = s.path(path).attr({
       fill: 'none',
       stroke: 'white',
       strokeWidth: 0.05
     })
-  console.log('a', Snap.path.toCubic(path))
   
   var total_area = N_X * N_Y
   var circle_area = 0
@@ -92,8 +98,8 @@ function redrawRand () {
     var color = chroma.random().hex()
     var x = 1 + (N_X - 2) * Math.random()
     var y = 1 + (N_Y - 2) * Math.random()
-    var r = 0.5
-    if (true) {
+    var r = maxRadius
+    if (!Snap.path.isPointInsideBBox(backerBBox, x, y)) {
       s.circle(x, y, r).attr({
         stroke: 'none',
         fill: color,
