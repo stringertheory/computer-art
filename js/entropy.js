@@ -48,7 +48,11 @@ function redrawEntropy () {
       console.log(x, y, q, p, q * p)
       // q = 0
       if (Math.random() > (q + p)) {
-        s.rect(x, y, 1, 1).attr({
+        // s.rect(x, y, 1, 1).attr({
+        //   fill: colors[color_index],
+        //   stroke: 'none'
+        // })
+        s.circle(x + 0.5, y + 0.5, 0.5).attr({
           fill: colors[color_index],
           stroke: 'none'
         })
