@@ -7,6 +7,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.2.1/chroma.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.6.0/js/md5.min.js"></script>
     </head>
     <body>
 	<div id="wrap">
@@ -14,59 +15,71 @@
 	    <div class="canvas-container">
 		<svg id="nake-canvas"></svg>
 		<button onclick="redrawNake()" id="nake-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('nake-canvas')" id="nake-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
 	    <div class="canvas-container">
 	        <svg id="nees-canvas"></svg>
 	        <button onclick="redrawNees()" id="nees-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('nees-canvas')" id="nees-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 	    
 	    <div class="canvas-container">
 	        <svg id="noll-canvas"></svg>
 	        <button onclick="redrawNoll()" id="noll-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('noll-canvas')" id="noll-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
 	    <div class="canvas-container">
 	        <svg id="mohr-canvas"></svg>
 	        <button onclick="redrawMohr()" id="mohr-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('mohr-canvas')" id="mohr-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 	    
 	    <div class="canvas-container">
 	        <svg id="molnar-canvas"></svg>
 	        <button onclick="redrawMolnar()" id="molnar-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('molnar-canvas')" id="molnar-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
 	    <div class="canvas-container">
 	        <svg id="boxes-canvas"></svg>
 	        <button onclick="redrawBoxes()" id="boxes-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('boxes-canvas')" id="boxes-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
             
 	    <div class="canvas-container">
 		<svg id="ibm-canvas"></svg>
 		<button onclick="redrawIBM()" id="ibm-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('ibm-canvas')" id="ibm-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
 	    <div class="canvas-container">
 		<svg id="entropy-canvas"></svg>
 		<button onclick="redrawEntropy()" id="entropy-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('entropy-canvas')" id="entropy-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
 	    <div class="canvas-container">
 		<svg id="ribbons-canvas"></svg>
 		<button onclick="redrawRibbons()" id="ribbons-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('ribbons-canvas')" id="ribbons-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
             <div class="canvas-container">
 		<svg id="quilt-canvas"></svg>
 		<button onclick="redrawQuilt()" id="quilt-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('quilt-canvas')" id="quilt-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
 
             <div class="canvas-container">
 		<svg id="kandinsky-canvas"></svg>
 		<button onclick="redrawKandinsky()" id="kandinsky-button" class="button button-raised"><i class="fa fa-repeat"></i> Regenerate</button>
+		<button onclick="makePNG('kandinsky-canvas')" id="kandinsky-png" class="button button-raised"><i class="fa fa-image"></i> PNG</button>
 	    </div>
             
 	</div>
+	<script type="text/javascript" src="js/svg_todataurl.js"></script>
 	<script type="text/javascript" src="js/utils.js"></script>
 	<script type="text/javascript" src="js/nake.js" defer></script>
 	<script type="text/javascript" src="js/nees.js" defer></script>
