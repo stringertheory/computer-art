@@ -18,16 +18,13 @@ function compliment(color) {
 
 function redrawQuilt () {
   var SVG_ID = '#quilt-canvas'
-  var N_X = 7
-  var N_Y = 7
-  var STROKE_WIDTH = 0.0
-  var WHITE = '#ffffff'
+  var N_X = 9
+  var N_Y = 6
   
   // make an svg with a viewbox
   var s = makeSVG(SVG_ID, N_X, N_Y)
+
   var color1 = rando()
-  // var color1 = chroma('#ff0303')
-  console.log(color1.hex(), compliment(color1))
   var colors = [
     color1.hex(),
     compliment(color1)
@@ -37,66 +34,74 @@ function redrawQuilt () {
   //   chroma.blend('red', 'blue', 'darken').hex()
   // ]
   // var colors = _.map(_.range(2), function (i) {
-  //   return rando();
-  //   // return chroma.random().hex()
-  //   // return Snap.rgb(Math.random() * 255, Math.random() * 255, Math.random() * 255)
+  //   return chroma.random().hex()
   // })
-  // var colors = _.map(chroma.scale([chroma.random(), chroma.random()]).colors(7), function (i) {
-  //   return r
-  // })
-  console.log(colors)
+  // var colors = chroma.scale([chroma.random(), chroma.random()]).colors(7)
   // var colors = [
   //   Snap.rgb(43, 188, 230),
   //   Snap.rgb(37, 165, 55),
-  //   Snap.rgb(200, 200, 200),
+  //   Snap.rgb(220, 220, 220),
+  //   Snap.rgb(0, 0, 0),
+  //   Snap.rgb(43, 188, 230),
+  //   Snap.rgb(37, 165, 55),
+  //   Snap.rgb(220, 220, 220),
+  //   Snap.rgb(0, 0, 0),
+  //   Snap.rgb(43, 188, 230),
+  //   Snap.rgb(37, 165, 55),
+  //   Snap.rgb(220, 220, 220),
+  //   Snap.rgb(0, 0, 0),
+  //   Snap.rgb(43, 188, 230),
+  //   Snap.rgb(37, 165, 55),
+  //   Snap.rgb(220, 220, 220),
   //   Snap.rgb(0, 0, 0),
   //   Snap.rgb(43, 188, 230),
   //   Snap.rgb(37, 165, 55),
   //   Snap.rgb(200, 200, 200),
   //   Snap.rgb(0, 0, 0)    
   // ]
+  
+  var stroker = colors[0]
 
-  // s.rect(-1, -1, N_X + 2, N_Y + 2).attr({
-  //   stroke: 'none',
-  //   fill: Snap.rgb(0, 0, 0, 0.1)
-  // })
-
-  // _.each(_.range(N_X + 1), function (x) {
-  //   _.each(_.range(N_Y + 1), function (y) {
-  //     colors = _.shuffle(colors)
-  //       s.rect(x - 0.5, y - 0.5, 1, 1).attr({
-  //         fill: colors[0],
-  //         stroke: 'none'
-  //       })
-  //   })
-  // })
-    
-  // make a series of N_Y polygons with the irregular horizontal lines
+  var grid = []
+  _.each(_.range(N_X + 1), function (x) {
+    var row = []
+    _.each(_.range(N_Y + 1), function (y) {
+      if (x > 0 && y > 0 && x < N_X && y < N_Y) {
+        row.push([x + jitter(0.5), y + jitter(0.5)])
+      } else {
+        row.push([x, y])
+      }
+    })
+      grid.push(row)
+  })
+  
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
-
 
       colors = _.shuffle(colors)
       
       var group = s.g()
       
       _.each(colors, function (color, index) {
-        group.add(s.rect(x - 0.5, y - 0.5, 2, 2 * (colors.length - index) / colors.length).attr({
+        var height = 2 * (colors.length - index) / colors.length
+        group.add(s.rect(x - 0.5, y - 0.5, 2, height).attr({
           fill: color,
           stroke: 'none',
           strokeWidth: 0.02
         }))
       })
-      var clipper = s.rect(x, y, 1, 1)
-      // var clipper = s.circle(x + 0.5, y + 0.5, 0.5)
-      // var a = 0;
-      // var path = [
-      //   [x - jitter(a), y - jitter(a)],
-      //   [x + 1 + jitter(a), y - jitter(a)],
-      //   [x + 1 + jitter(a), y + 1 + jitter(a)],
-      //   [x - jitter(a), y + 1 + jitter(a)]
-      // ]
-      // var clipper = s.polyline(path)
+      var path = [
+        grid[x][y],
+        grid[x + 1][y],
+        grid[x + 1][y + 1],
+        grid[x][y + 1]
+      ]
+      var clipper = s.polyline(path)
+      // var blipper = s.polyline(path).attr({
+      //   fill: 'none',
+      //   stroke: stroker,
+      //   strokeWidth: 0.05
+      // })
       if (Math.random() < 1) {
         var angle = 360 * (Math.random() - 0.5)
         group.transform(
