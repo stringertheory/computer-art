@@ -1,3 +1,4 @@
+// http://www.wassilykandinsky.net/work-247.php
 function redrawKandinsky () {
   var SVG_ID = '#kandinsky-canvas'
   var N_X = 11

@@ -1,3 +1,7 @@
+// http://simoncpage.co.uk/blog/2009/08/random-dance-geometric-poster-designs/
+// http://www.pbase.com/brownsf/amish_quilts
+// http://www.pbase.com/brownsf/image/84992170
+// http://www.pbase.com/brownsf/image/12150606
 function jitter(amount) {
   return amount * (Math.random() - 0.5);
 }
