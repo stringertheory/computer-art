@@ -1,3 +1,9 @@
+function randomColor() {
+  var h = 360 * Math.random()
+  var s = 0.5 * 100
+  var l = 0.6 * 100
+  return chroma.hcl(h, s, l).hex()
+}
 function convertToPath(points) {
   var path = '';
   _.each(points, function (point, index) {
@@ -19,7 +25,7 @@ function convertToPath(points) {
 function redrawRand () {
   var SVG_ID = '#rand-canvas'
   var N_X = 40
-  var N_Y = N_X * (Math.sqrt(5) + 1) / 2
+  var N_Y = N_X * 1.33 //(Math.sqrt(5) + 1) / 2
   var DELTA = 0.1
   var N_LINES = 5
   var P_CIRCLE = 0.2
@@ -37,7 +43,7 @@ function redrawRand () {
   var text = 'Hello World'
   var textAttributes = {
     fill: Snap.rgb(230, 230, 230),
-    'font-size': 1.5,
+    'font-size': 1,
     'font-family': 'Helvetica Neue',
     'font-weight': 'light'
     
@@ -48,13 +54,13 @@ function redrawRand () {
     'font-weight': 'bold'
   }))
   var text = 'Special Issue'
-  textGroup.add(s.text(xText + 10, yText, text).attr(textAttributes))
+  textGroup.add(s.text(xText + 7, yText, text).attr(textAttributes))
   var text = '30 Influential Coders'
-  yText += 2
-  textGroup.add(s.text(xText + 12, yText, text).attr(textAttributes))
-  var text = 'of the Century'
-  yText += 2
+  yText += 1.4
   textGroup.add(s.text(xText + 8, yText, text).attr(textAttributes))
+  var text = 'of the Century'
+  yText += 1.4
+  textGroup.add(s.text(xText + 6, yText, text).attr(textAttributes))
   var maxRadius = 2
   var textBBox = textGroup.getBBox()
   var textBacker = s.rect(textBBox.x - 2 * maxRadius, textBBox.y - 2 * maxRadius, textBBox.width + 4 * maxRadius, textBBox.height + 4 * maxRadius).attr({
@@ -95,15 +101,15 @@ function redrawRand () {
   var N_CIRCLES = 21
   var n_circles = 0
   while (n_circles < N_CIRCLES) {
-    var color = chroma.random().hex()
-    var x = 1 + (N_X - 2) * Math.random()
-    var y = 1 + (N_Y - 2) * Math.random()
+    var color = randomColor()
+    var x = maxRadius + (N_X - 2 * maxRadius) * Math.random()
+    var y = maxRadius + (N_Y - 2 * maxRadius) * Math.random()
     var r = maxRadius
     if (!Snap.path.isPointInsideBBox(backerBBox, x, y)) {
       s.circle(x, y, r).attr({
         stroke: 'none',
         fill: color,
-        // style: 'mix-blend-mode: lighten'
+        style: 'mix-blend-mode: lighten'
       })
       n_circles += 1
     }

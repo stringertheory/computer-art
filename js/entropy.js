@@ -41,11 +41,9 @@ function redrawEntropy () {
       return x % colors.length
     })
     shuffle(color_indexes, (y / 2) * (N_X / N_Y))
-    console.log((N_X * y) / (N_Y * 2))
     _.each(color_indexes, function (color_index, x) {
       var q = Math.pow(y / N_Y, 2)
       var p = Math.pow(2 * (x - Math.floor(N_X / 2)) / N_X, 12)
-      console.log(x, y, q, p, q * p)
       // q = 0
       if (Math.random() > (q + p)) {
         // s.rect(x, y, 1, 1).attr({
