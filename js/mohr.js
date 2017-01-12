@@ -67,6 +67,6 @@ function redrawMohr () {
         fill: 'none'
       })
     })
-  })
+      })
 }
 redrawMohr()

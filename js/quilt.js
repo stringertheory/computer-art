@@ -2,10 +2,6 @@
 // http://www.pbase.com/brownsf/amish_quilts
 // http://www.pbase.com/brownsf/image/84992170
 // http://www.pbase.com/brownsf/image/12150606
-function jitter(amount) {
-  return amount * (Math.random() - 0.5);
-}
-
 function rando() {
   var h = 360 * Math.random();
   var c = 80 + 20 * Math.random()
