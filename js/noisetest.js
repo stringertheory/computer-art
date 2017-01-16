@@ -1,8 +1,22 @@
+// TODO:
+// randomize mouth shape (slight smile versus straight) X
+// randomize mouth rotation (can be slightly askew) X
+// randomize mouth center (can be slightly offcenter) X
+// randomize size of eyes NO
+// randomize distance-apart of eyes X
+// randomize head-height of eyes X
+// randomize width of character
+// randomize length of legs
+// randomize number of legs (2 or 4)
+// randomize angular placement of legs (can be slightly rotated)
+
+
+
 function blob(x_center, y_center, r_base, n_points) {
-  var jitter = 0.05
+  var jitter = 0.07
   noise.seed(Math.random());
-  var x_squish = 1//0.5 + 0.5 * (Math.random() - 0.5)
-  var y_squish = 1//0.5 + 0.5 * (Math.random() - 0.5)
+  var x_squish = 1//1 - 0.5 * Math.random()
+  var y_squish = 1//1 - 0.5 * Math.random()
   var points = []
   _.each(_.range(n_points), function (i) {
     var theta = 2 * Math.PI * i / n_points
@@ -17,62 +31,113 @@ function blob(x_center, y_center, r_base, n_points) {
   return points  
 }
 
+function mouthline(x0, y0, width, height, n_points, jitter) {
+  noise.seed(Math.random());
+  var points = []
+  _.each(_.range(n_points), function (i) {
+    var x = x0 + width * (i / (n_points - 1))
+    var a = - 4 * height / (width * width)
+    var y = a * Math.pow(x - (x0 + 0.5 * width), 2) + (y0 + height) + jitter * noise.perlin2(x, y0)
+    points.push([x, y])
+  })
+  return points  
+}
+
 function redrawNoiseTest () {
   var SVG_ID = '#noisetest-canvas'
-  var N_X = 5
-  var N_Y = 5
-  var N_POINTS = 100
-  var STROKE_WIDTH = 0.02;
+  var N_X = 3
+  var N_Y = 3
+  var N_POINTS = 36
+  var STROKE_WIDTH = 2;
   
   // make an svg with a viewbox
   var s = makeSVG(SVG_ID, N_X, N_Y)
 
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
-      var points = blob(x + 0.5, y + 0.5, 0.4, 100);
+
+      var cx = x + 0.5
+      var cy = y + 0.5
+
+      var group = s.g()
+      
+      var points = blob(cx, cy, 0.4, N_POINTS);
       var face = s.polyline(points).attr({
         stroke: 'black',
+        fill: chroma.mix(chroma.random(), 'white', 0.9),
         strokeWidth: STROKE_WIDTH,
-        fill: 'none',
+        'vector-effect': "non-scaling-stroke"
       })
-      var points = [[x + 0.05, y + 0.5], [x + 1 - 0.05, y + 0.5]]
+      group.add(face)
+
+      var mouth_jitter = 0.07
+      var mouth_width = 0.9
+      var max_smile = 0.1
+      var points = mouthline(
+        x + 0.5 * (1 - mouth_width) + jitter(mouth_jitter),
+        cy + jitter(mouth_jitter),
+        mouth_width + jitter(mouth_jitter),
+        max_smile * Math.random(),
+        N_POINTS,
+        mouth_jitter
+      )
       var mouth = s.polyline(points).attr({
         stroke: 'black',
-        strokeWidth: STROKE_WIDTH,
         fill: 'none',
+        strokeWidth: STROKE_WIDTH,
+        'vector-effect': "non-scaling-stroke"
       })
+      mouth.transform(Snap.format('r{angle},{x_center},{y_center}', {
+      	angle: -10 + 20 * Math.random(),
+      	x_center: cx,
+      	y_center: cy
+      }))
+      group.add(mouth)
+      
       var n_legs = 2
       _.each(_.range(n_legs), function (i) {
         var theta = Math.PI / 2 - 15 * Math.PI / 180 + 30 * i * Math.PI / 180
         var points = [
-          [x + 0.5 + 0.3 * Math.cos(theta), y + 0.5 + 0.3 * Math.sin(theta)],
-          [x + 0.5 + 0.5 * Math.cos(theta), y + 0.5 + 0.5 * Math.sin(theta)],
+          [cx + 0.35 * Math.cos(theta) + jitter(0.05),
+           cy + 0.35 * Math.sin(theta) + jitter(0.05)],
+          [cx + 0.5 * Math.cos(theta) + jitter(0.05),
+           cy + 0.5 * Math.sin(theta) + jitter(0.05)],
         ]
         var leg = s.polyline(points).attr({
           stroke: 'black',
-          strokeWidth: STROKE_WIDTH,
           fill: 'none',
+          strokeWidth: STROKE_WIDTH,
+          'vector-effect': "non-scaling-stroke"
         })
-        
+        group.add(leg)
       })
 
       var n_eyes = 2
+      var eye_size = 0.03
+      var eye_apart = (30 + 60 * Math.random()) * Math.PI / 180
+      var eye_center = (270 + 30 * (Math.random() - 0.5)) * Math.PI / 180
       _.each(_.range(n_eyes), function (i) {
-        var theta = 3 * Math.PI / 2 - 15 * Math.PI / 180 + 30 * i * Math.PI / 180
-        var r = 0.2
-        var x_eye = r * Math.cos(theta)
-        var y_eye = r * Math.sin(theta)
-        var leg = s.circle(x + 0.5 + x_eye, y + 0.5 + y_eye, 0.02).attr({
+        var theta = eye_center - eye_apart * (i - 0.5)
+        var eye_r = 0.15 + 0.05 * Math.random()
+        var x_eye = eye_r * Math.cos(theta)
+        var y_eye = eye_r * Math.sin(theta)
+        var eye = s.circle(cx + x_eye, cy + y_eye, eye_size).attr({
           stroke: 'none',
+          fill: chroma.mix(chroma.random(), 'black', 1),
           strokeWidth: STROKE_WIDTH,
-          fill: 'black',
+          'vector-effect': "non-scaling-stroke",
         })
-        
+        group.add(eye)
       })
+      group.transform(Snap.format('s{x},{y}', {
+      	x: 1.0 - 0.25 * Math.random(),
+      	y: 1.0 - 0.25 * Math.random()
+      }))
+        
         // p.transform(Snap.format('r{angle},{x_center},{y_center}', {
       // 	angle: Math.random() * 360,
-      // 	x_center: x + 0.5,
-      // 	y_center: y + 0.5
+      // 	x_center: cx,
+      // 	y_center: cy
       // }))
     })
   })
