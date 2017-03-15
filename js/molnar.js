@@ -11,13 +11,21 @@ function calculateHoleP (holes, x, y) {
 }
 
 function redrawMolnar () {
+
+  // Sets Math.random to a PRNG initialized using the given explicit seed.
+  // var seed = Math.floor(Math.random() * 10000);
+  var seed = 4697;
+  console.log(seed);
+  Math.seedrandom(seed);
+
+  // Math.seedrandom('42');
   var SVG_ID = '#molnar-canvas'
-  var N_X = 50
-  var N_Y = 50
+  var N_X = 37
+  var N_Y = 37
   var STROKE_WIDTH = 0.07
-  var N_HOLES = 12
+  var N_HOLES = 7
   var MIN_R = 1
-  var MAX_R = 5
+  var MAX_R = 6
 
   var s = makeSVG(SVG_ID, N_X, N_Y)
 
@@ -30,29 +38,77 @@ function redrawMolnar () {
     ])
   })
 
+    var colors = [
+      Snap.rgb(255, 100, 0),
+      Snap.rgb(0, 100, 255),
+    ]
+  var textAttributes = {
+    fill: Snap.rgb(125, 125, 125),
+    'font-size': 0.6,
+    'font-family': 'Helvetica Neue',
+    'text-anchor': 'middle',
+    'alignment-baseline': 'middle'
+    
+  }
+  // _.each(_.range(N_Y), function (y) {
+  //   s.line(0, y + 0.5, N_X, y + 0.5).attr({
+  //     'stroke': colors[y % 2],
+  //     'strokeWidth': 0.01
+  //   });
+  //   s.text(-0.5, y + 0.5, "" + y).attr(textAttributes).attr({
+  //     fill: colors[y % 2]
+  //   });
+  //   s.text(N_X + 0.5, y + 0.5, "" + y).attr(textAttributes).attr({
+  //     fill: colors[y % 2]
+  //   });
+  // });
+  // _.each(_.range(N_X), function (x) {
+  //   s.line(x + 0.5, 0, x + 0.5, N_Y).attr({
+  //     'stroke': colors[x % 2],
+  //     'strokeWidth': 0.01
+  //   });
+  //   s.text(x + 0.5, -0.5, "" + x).attr(textAttributes).attr({
+  //     fill: colors[x % 2]
+  //   });
+  //   s.text(x + 0.5, N_Y + 0.5, "" + x).attr(textAttributes).attr({
+  //     fill: colors[x % 2]
+  //   });
+  // });
+    
+  var n_points = 0
   var rect_group = s.g()
   var line_group = s.g()
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
       var p = calculateHoleP(holes, x, y)
       var color = 255 - Math.min(255, 255 * p)
-      // var rect = rect_group.add(s.rect(x - 1, y - 1, x + 1, y + 1).attr({
+      // var rect = rect_group.add(s.rect(x, y, 1, 1).attr({
       // 	stroke: 'none',
-      // 	fill: Snap.rgb(color, 255, 255)
+      // 	fill: Snap.rgb(color, 255, 255),
+      //   strokeWidth: 0.01
       // }));
       if (Math.random() > p) {
+        var point = s.circle(x + 0.5, y + 0.5, 0.15).attr({
+          stroke: 'none',
+          // fill: 'black'
+          fill: 'none'
+        })
+        n_points += 1
 	var line = s.line(x - 0.5, y + 0.5, x + 1.5, y + 0.5).attr({
-	  stroke: 'black',
-	  strokeWidth: STROKE_WIDTH
+	  stroke: Snap.rgb(0, 0, 0),
+	  // strokeWidth: 0,
+	  strokeWidth: STROKE_WIDTH,
+          
 	})
 	line.transform(Snap.format('r{angle},{x_center},{y_center}', {
-      	  angle: 90 + (Math.random() - 0.5) * 135,
+      	  angle: 90 + (Math.random() - 0.5) * 360,
 	  // angle: 0,
       	  x_center: x + 0.5,
       	  y_center: y + 0.5
       	}))
       }
     })
-  })
+      })
+    console.log('n points:', n_points)
 }
 redrawMolnar()

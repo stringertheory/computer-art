@@ -45,14 +45,22 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
 
 function redrawNoiseTest () {
   var SVG_ID = '#noisetest-canvas'
-  var N_X = 3
-  var N_Y = 3
-  var N_POINTS = 36
-  var STROKE_WIDTH = 2;
+  var N_X = 24
+  var N_Y = 24
+  var N_POINTS = 36 * 2
+  var STROKE_WIDTH = 0.5;
+  var STROKE_COLOR = 'black';
+  var BACKGROUND_COLOR = 'white';
+  var EPSILON = 0.000001;
   
   // make an svg with a viewbox
   var s = makeSVG(SVG_ID, N_X, N_Y)
 
+  var r = s.rect(0, 0, N_X, N_Y).attr({
+    stroke: 'none',
+    fill: BACKGROUND_COLOR
+  })
+  
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
 
@@ -63,8 +71,8 @@ function redrawNoiseTest () {
       
       var points = blob(cx, cy, 0.4, N_POINTS);
       var face = s.polyline(points).attr({
-        stroke: 'black',
-        fill: chroma.mix(chroma.random(), 'white', 0.9),
+        stroke: STROKE_COLOR,
+        fill: chroma.mix(chroma.random(), 'white', 0),
         strokeWidth: STROKE_WIDTH,
         'vector-effect': "non-scaling-stroke"
       })
@@ -82,7 +90,7 @@ function redrawNoiseTest () {
         mouth_jitter
       )
       var mouth = s.polyline(points).attr({
-        stroke: 'black',
+        stroke: STROKE_COLOR,
         fill: 'none',
         strokeWidth: STROKE_WIDTH,
         'vector-effect': "non-scaling-stroke"
@@ -104,7 +112,7 @@ function redrawNoiseTest () {
            cy + 0.5 * Math.sin(theta) + jitter(0.05)],
         ]
         var leg = s.polyline(points).attr({
-          stroke: 'black',
+          stroke: STROKE_COLOR,
           fill: 'none',
           strokeWidth: STROKE_WIDTH,
           'vector-effect': "non-scaling-stroke"
@@ -121,12 +129,21 @@ function redrawNoiseTest () {
         var eye_r = 0.15 + 0.05 * Math.random()
         var x_eye = eye_r * Math.cos(theta)
         var y_eye = eye_r * Math.sin(theta)
-        var eye = s.circle(cx + x_eye, cy + y_eye, eye_size).attr({
-          stroke: 'none',
-          fill: chroma.mix(chroma.random(), 'black', 1),
-          strokeWidth: STROKE_WIDTH,
+        var eye = s.line(
+          cx + x_eye, cy + y_eye,
+          cx + x_eye, cy + y_eye + EPSILON).attr({
+          // fill: chroma.mix(chroma.random(), 'black', 1),
           'vector-effect': "non-scaling-stroke",
-        })
+          'stroke': chroma.mix(chroma.random(), STROKE_COLOR, 1),
+          'strokeWidth': 2 * STROKE_WIDTH,
+          'stroke-linecap': 'round'
+        });
+        // var eye = s.circle(cx + x_eye, cy + y_eye, eye_size).attr({
+        //   stroke: 'none',
+        //   fill: chroma.mix(chroma.random(), 'black', 1),
+        //   strokeWidth: STROKE_WIDTH,
+        //   'vector-effect': "non-scaling-stroke",
+        // })
         group.add(eye)
       })
       group.transform(Snap.format('s{x},{y}', {
@@ -140,8 +157,9 @@ function redrawNoiseTest () {
       // 	y_center: cy
       // }))
     })
+      
   })
-  
+    
   
 }
 redrawNoiseTest()

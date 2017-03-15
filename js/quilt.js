@@ -36,7 +36,7 @@ function redrawQuilt () {
   // var colors = _.map(_.range(2), function (i) {
   //   return chroma.random().hex()
   // })
-  var colors = chroma.scale([chroma.random(), chroma.random()]).colors(7)
+  // var colors = chroma.scale([chroma.random(), chroma.random()]).colors(7)
   // var colors = [
   //   Snap.rgb(43, 188, 230),
   //   Snap.rgb(37, 165, 55),
