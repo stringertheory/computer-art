@@ -1,69 +1,99 @@
-function deform (polygon, nDeform) {
-  var ux = d3.randomUniform(polygon.bounds.left - 40, polygon.bounds.right + 40);
-  var uy = d3.randomUniform(polygon.bounds.bottom - 40, polygon.bounds.top + 40);
+function deform (polygon, nDeform, chunkiness, maskFraction) {
+
+  // defaults: chunkiness of 1 starts getting *zany*, but 1.5 looks
+  // pretty cool. Once it starts getting up there (~5), then it's
+  // basically the original shape.
+  chunkiness = (typeof chunkiness !== 'undefined') ?  chunkiness : 1.5;
+
+  // fraction of the width of the polygon to use as the clipping
+  // circle radius (makes stuff slow when it gets high since it scales
+  // quadratically)
+  maskFraction = (typeof maskFraction !== 'undefined') ?  maskFraction : 10;
+
+  // radius to use for texture circles
+  var radius = (polygon.bounds.right - polygon.bounds.left) / maskFraction;
+
+  // functions to generate texture circle center points
+  var ux = d3.randomUniform(
+    polygon.bounds.left - radius,
+    polygon.bounds.right + radius
+  );
+  var uy = d3.randomUniform(
+    polygon.bounds.bottom - radius,
+    polygon.bounds.top + radius
+  );
+
+  // each run through this loop subdivides every edge
   _.each(_.range(nDeform), function (index) {
+
+    // start with the first curve in the polygon
     var curve = polygon.firstCurve;
     _.each(_.range(polygon.curves.length), function (index) {
+
+      // add a new segment half way through (this returns the new curve)
       var second = curve.divideAtTime(0.5)
-      var fd = d3.randomNormal(0, second.length / 2);
+
+      // determines how many standard deviations (in units of lengths
+      // of the new segment) to jitter the new middle point
+      var fd = d3.randomNormal(0, second.length / chunkiness);
       second.point1.x += fd();
       second.point1.y += fd();
+
+      // now set `curve` to be the next curve in the sequence (TODO:
+      // there must be a better way to do this than with this hack
+      // inside of a for loop)
       curve = second.next;
     });
 
+    // make a bunch of circles in a group
     var circleGroup = new Group();
-    _.each(_.range(100), function (index) {
+    _.each(_.range(maskFraction * maskFraction), function (index) {
       circleGroup.addChild(new Path.Circle({
         center: [ux(), uy()],
-        radius: 40,
-        strokeColor: 'black'
+        radius: radius,
       }));
     });
 
+    // use the group of circles to clip the polygon
     var group = new Group(circleGroup, polygon);
     group.clipped = true;
 
   });
 }
 
-var blend = 'color';
-var basePolygon = new Path.RegularPolygon({
-  center: view.center,
-  sides: 8,
-  radius: 200,
-  fillColor: new Color(0.85, 0.05, 0.10)
-});
-basePolygon.opacity = 0.05;
-basePolygon.blendMode = blend;
-deform(basePolygon, 3)
+function randomColor() {
+  var rgb = _.map(chroma.random().rgb(), function (value) {
+    return value / 255;
+  });
+  return new Color(rgb[0], rgb[1], rgb[2]);
+}
 
-var basePolygon2 = new Path.RegularPolygon({
-  center: view.center + new Point(200, 0),
-  sides: 8,
-  radius: 200,
-  fillColor: new Color(0.05, 0.35, 0.95)
-});
-basePolygon2.opacity = 0.05;
-basePolygon2.blendMode = blend;
-deform(basePolygon2, 3)
+var nLayers = 25;
+var nSides = 8;
+var radius = 175;
+var opacity = 1 / (nLayers + 1);
+var blend = 'lighten';
 
-var basePolygon3 = new Path.RegularPolygon({
-  center: view.center + new Point(100, 150),
-  sides: 8,
-  radius: 200,
-  fillColor: new Color(0.9, 0.9, 0.9)
-});
-basePolygon3.opacity = 0.05;
-basePolygon3.blendMode = blend;
-deform(basePolygon3, 3)
+var basePolygons = _.map([
+  new Point(-100, -50),
+  new Point(100, -50),
+  new Point(0, 50),
+  new Point(300, -100),
+  new Point(-300, -100),
+], function (offset) {
+  var result = new Path.RegularPolygon({
+    center: view.center + offset,
+    sides: nSides,
+    radius: radius,
+    opacity: opacity,
+    blendMode: blend,
+    fillColor: randomColor()
+  });
+  deform(result, 4);
+  return result;
+})
 
-var bases = [
-  basePolygon,
-  basePolygon2,
-  basePolygon3
-];
-
-_.each(_.range(75), function (index) {
-  var i = index % bases.length;
-  deform(bases[i].clone(), 3);
+_.each(_.range(nLayers * basePolygons.length), function (index) {
+  var i = index % basePolygons.length;
+  deform(basePolygons[i].clone(), 3);
 });
