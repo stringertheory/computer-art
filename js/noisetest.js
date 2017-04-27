@@ -45,12 +45,12 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
 
 function redrawNoiseTest () {
   var SVG_ID = '#noisetest-canvas'
-  var N_X = 24
-  var N_Y = 24
+  var N_X = 4
+  var N_Y = 4
   var N_POINTS = 36 * 2
-  var STROKE_WIDTH = 0.5;
+  var STROKE_WIDTH = 2;
   var STROKE_COLOR = 'black';
-  var BACKGROUND_COLOR = 'white';
+  var BACKGROUND_COLOR = chroma.hcl(90, 5, 95);
   var EPSILON = 0.000001;
   
   // make an svg with a viewbox
@@ -72,7 +72,7 @@ function redrawNoiseTest () {
       var points = blob(cx, cy, 0.4, N_POINTS);
       var face = s.polyline(points).attr({
         stroke: STROKE_COLOR,
-        fill: chroma.mix(chroma.random(), 'white', 0),
+        fill: chroma.mix(chroma.random(), 'white', 0.4),
         strokeWidth: STROKE_WIDTH,
         'vector-effect': "non-scaling-stroke"
       })
