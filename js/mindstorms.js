@@ -1,0 +1,91 @@
+function randomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function petal(svg, x, y, length, angle) {
+  var g = svg.g()
+  g.add(svg.path(Snap.format("M {x1} {y1} A {r} {r} 0 0 {sweep} {x2} {y2}", {
+    x1: x,
+    y1: y,
+    r: length / Math.sqrt(2),
+    x2: x + length,
+    y2: y,
+    sweep: 1
+  })));
+  g.add(svg.path(Snap.format("M {x1} {y1} A {r} {r} 0 0 {sweep} {x2} {y2}", {
+    x1: x,
+    y1: y,
+    r: length / Math.sqrt(2),
+    x2: x + length,
+    y2: y,
+    sweep: 0
+  })));
+  g.transform(Snap.format('r{angle},{x_center},{y_center}', {
+    angle: angle * (180 / Math.PI),
+    x_center: x,
+    y_center: y
+  }));
+  return g;
+}
+
+function flower(svg, x, y, radius, nPetals, angleOffset) {
+  var g = svg.g();
+  var color = chroma.random();
+  _.each(_.range(nPetals), function (i) {
+    var angle = 2 * Math.PI * i / nPetals + angleOffset;
+    var p = petal(svg, x, y, radius, angle);
+    p.attr({
+      fill: color,
+      fillOpacity: 0.5,
+      stroke: 'black',
+      strokeWidth: 0.01,
+      strokeOpacity: 0.5
+    });
+    g.add(p);
+  });
+  return g;
+}
+
+function overlap (shapes, x, y, n, max) {
+  if (n >= max) {
+    return false;
+  } else {
+    return _.any(shapes, function (shape) {
+      var bbox = shape.getBBox();
+      return Snap.path.isPointInsideBBox(bbox, x, y);
+    });
+  }
+}
+
+function redrawMindstorms () {
+
+  var SVG_ID = '#mindstorms-canvas'
+  var N_X = 10
+  var N_Y = 10
+  var N_FLOWERS = 100;
+  var MAX_TRIES = 100;
+  
+  // make an svg with a viewbox
+  var s = makeSVG(SVG_ID, N_X, N_Y)
+
+  var flowers = [];
+  var nFlowers = 0;
+  while (nFlowers < N_FLOWERS) {
+    var nTries = 0;
+    do {
+      var x = 1 + Math.random() * (N_X - 2);
+      var y = 1 + Math.random() * (N_Y - 2);
+      nTries += 1;
+    }
+    while (overlap(flowers, x, y, nTries, MAX_TRIES));
+    var angleOffset = Math.random() * 2 * Math.PI;
+    var nPetals = randomInt(5, 13);
+    var radius = 0.25 + 0.5 * Math.random();
+    flowers.push(flower(s, x, y, radius, nPetals, angleOffset));
+    nFlowers += 1;
+  }
+  
+}
+redrawMindstorms()
