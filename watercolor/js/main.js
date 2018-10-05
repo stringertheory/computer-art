@@ -68,19 +68,28 @@ function randomColor() {
   return new Color(rgb[0], rgb[1], rgb[2]);
 }
 
-var nLayers = 25;
-var nSides = 8;
-var radius = 175;
+var nLayers = 30;
+var nSides = 6;
+var radius = 200;
 var opacity = 1 / (nLayers + 1);
 var blend = 'lighten';
 
-var basePolygons = _.map([
-  new Point(-100, -50),
-  new Point(100, -50),
-  new Point(0, 50),
-  new Point(300, -100),
-  new Point(-300, -100),
-], function (offset) {
+var pointList = [];
+_.each(_.range(10), function (i) {
+  var x = 0.5 * view.bounds.width * (1 - 2 * Math.random());
+  var y = 0.5 * view.bounds.height * (1 - 2 * Math.random());
+  var p = new Point(x, y);
+  pointList.push(p);
+});
+
+// var pointList = [
+//   // new Point(-100, -50),
+//   // new Point(100, -50),
+//   new Point(0, 50),
+//   // new Point(300, -100),
+//   // new Point(-300, -100),
+// ]
+var basePolygons = _.map(pointList, function (offset) {
   var result = new Path.RegularPolygon({
     center: view.center + offset,
     sides: nSides,
@@ -97,3 +106,7 @@ _.each(_.range(nLayers * basePolygons.length), function (index) {
   var i = index % basePolygons.length;
   deform(basePolygons[i].clone(), 3);
 });
+
+// var logo = project.importSVG('js/IDEO_LOGO_2014_FINAL-white.svg', function (item) {
+//   item.position = view.center;
+// });

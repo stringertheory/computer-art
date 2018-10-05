@@ -45,21 +45,22 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
 
 function redrawNoiseTest () {
   var SVG_ID = '#noisetest-canvas'
-  var N_X = 4
-  var N_Y = 4
+  var N_X = 5
+  var N_Y = 5
   var N_POINTS = 36 * 2
-  var STROKE_WIDTH = 2;
+  var STROKE_WIDTH = 0.03;
   var STROKE_COLOR = 'black';
-  var BACKGROUND_COLOR = chroma.hcl(90, 5, 95);
+  var BACKGROUND_COLOR = 'white';
+  // var BACKGROUND_COLOR = chroma.hcl(270, 2, 98);
   var EPSILON = 0.000001;
   
   // make an svg with a viewbox
   var s = makeSVG(SVG_ID, N_X, N_Y)
 
-  var r = s.rect(0, 0, N_X, N_Y).attr({
-    stroke: 'none',
-    fill: BACKGROUND_COLOR
-  })
+  // var r = s.rect(0, 0, N_X, N_Y).attr({
+  //   stroke: 'none',
+  //   fill: BACKGROUND_COLOR
+  // })
   
   _.each(_.range(N_X), function (x) {
     _.each(_.range(N_Y), function (y) {
@@ -72,9 +73,10 @@ function redrawNoiseTest () {
       var points = blob(cx, cy, 0.4, N_POINTS);
       var face = s.polyline(points).attr({
         stroke: STROKE_COLOR,
-        fill: chroma.mix(chroma.random(), 'white', 0.4),
-        strokeWidth: STROKE_WIDTH,
-        'vector-effect': "non-scaling-stroke"
+        fill: chroma.mix(chroma.random(), 'white', 0.5),
+        // fill: 'none',
+        strokeWidth: STROKE_WIDTH
+        // 'vector-effect': "non-scaling-stroke"
       })
       group.add(face)
 
@@ -92,8 +94,8 @@ function redrawNoiseTest () {
       var mouth = s.polyline(points).attr({
         stroke: STROKE_COLOR,
         fill: 'none',
-        strokeWidth: STROKE_WIDTH,
-        'vector-effect': "non-scaling-stroke"
+        strokeWidth: STROKE_WIDTH
+        // 'vector-effect': "non-scaling-stroke"
       })
       mouth.transform(Snap.format('r{angle},{x_center},{y_center}', {
       	angle: -10 + 20 * Math.random(),
@@ -114,8 +116,8 @@ function redrawNoiseTest () {
         var leg = s.polyline(points).attr({
           stroke: STROKE_COLOR,
           fill: 'none',
-          strokeWidth: STROKE_WIDTH,
-          'vector-effect': "non-scaling-stroke"
+          strokeWidth: STROKE_WIDTH
+          // 'vector-effect': "non-scaling-stroke"
         })
         group.add(leg)
       })
@@ -133,7 +135,7 @@ function redrawNoiseTest () {
           cx + x_eye, cy + y_eye,
           cx + x_eye, cy + y_eye + EPSILON).attr({
           // fill: chroma.mix(chroma.random(), 'black', 1),
-          'vector-effect': "non-scaling-stroke",
+          // 'vector-effect': "non-scaling-stroke",
           'stroke': chroma.mix(chroma.random(), STROKE_COLOR, 1),
           'strokeWidth': 2 * STROKE_WIDTH,
           'stroke-linecap': 'round'

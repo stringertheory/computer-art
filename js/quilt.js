@@ -18,8 +18,8 @@ function compliment(color) {
 
 function redrawQuilt () {
   var SVG_ID = '#quilt-canvas'
-  var N_X = 9
-  var N_Y = 6
+  var N_X = 10
+  var N_Y = 10
   
   // make an svg with a viewbox
   var s = makeSVG(SVG_ID, N_X, N_Y)

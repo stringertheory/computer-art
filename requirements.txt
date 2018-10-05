@@ -1,0 +1,5 @@
+pyperclip
+shapely
+boltons
+svg.path
+pycodestyle

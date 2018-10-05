@@ -51,11 +51,11 @@ function redrawRand () {
   var xText = 1 + 12 * Math.random()
   var yText = N_Y - 10 - (N_Y - 10 - 12) * Math.random()
   textGroup.add(s.text(xText, yText, text).attr(textAttributes).attr({
-    'font-weight': 'bold'
+    'font-weight': '900'
   }))
   var text = 'Special Issue'
   textGroup.add(s.text(xText + 7, yText, text).attr(textAttributes))
-  var text = '30 Influential Coders'
+  var text = '30 Influential Humans'
   yText += 1.4
   textGroup.add(s.text(xText + 8, yText, text).attr(textAttributes))
   var text = 'of the Century'

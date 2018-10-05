@@ -2,9 +2,12 @@ function redrawNake () {
   var SVG_ID = '#nake-canvas'
   var N_X = 12
   var N_Y = 12
+  var STROKE_COLOR = 'black'
   var STROKE_WIDTH = 0.02
+  var CIRCLE_STROKE_COLOR = 'black'
+  var CIRCLE_STROKE_WIDTH = 0.02
   var P_CRISSCROSS = 0.15
-  var P_VERTICAL = 0.15
+  var P_VERTICAL = 0.05
   var P_CIRCLE = 0.1
 
   // make an svg with a viewbox
@@ -12,14 +15,14 @@ function redrawNake () {
 
   // for the mask
   var outer = s.rect(0, 0, N_X, N_Y).attr({
-    stroke: 'black',
+    stroke: STROKE_COLOR,
     strokeWidth: STROKE_WIDTH,
     fill: 'white'
   })
 
   // to draw the border
   var frame = s.rect(0, 0, N_X, N_Y).attr({
-    stroke: 'black',
+    stroke: STROKE_COLOR,
     strokeWidth: STROKE_WIDTH,
     fill: 'none'
   })
@@ -39,16 +42,16 @@ function redrawNake () {
     var next_top = current_bottom.slice(0)
     current_bottom.reverse()
     group.add(s.polyline(current_top.concat(current_bottom)).attr({
-      stroke: 'black',
+      stroke: STROKE_COLOR,
       strokeWidth: STROKE_WIDTH,
       fill: 'white'
     }))
     current_top = next_top
   })
-  current_bottom = [[0, N_Y], [N_X, N_Y]]
+  var current_bottom = [[0, N_Y], [N_X, N_Y]]
   current_bottom.reverse()
   group.add(s.polyline(current_top.concat(current_bottom)).attr({
-    stroke: 'black',
+    stroke: STROKE_COLOR,
     strokeWidth: STROKE_WIDTH,
     fill: 'white'
   }))
@@ -74,7 +77,7 @@ function redrawNake () {
 	    x + Math.random(), bbox.y,
 	    x + Math.random(), bbox.y2
 	  ).attr({
-	                        stroke: 'black',
+	                        stroke: STROKE_COLOR,
 	                        strokeWidth: STROKE_WIDTH
 	  }))
 	})
@@ -82,7 +85,7 @@ function redrawNake () {
 	                                                                                _.each(_.range(20), function (i) {
 	                      var x0 = x + Math.random()
 	                      v_group.add(s.line(x0, bbox.y, x0, bbox.y2).attr({
-	                        stroke: 'black',
+	                        stroke: STROKE_COLOR,
 	                        strokeWidth: STROKE_WIDTH
 	  }))
 	})
@@ -95,8 +98,8 @@ function redrawNake () {
     _.each(_.range(1, N_X), function (x) {
       if (Math.random() < P_CIRCLE) {
 	                                                                                s.circle(x, y, Math.random()).attr({
-	                      stroke: 'black',
-	                      strokeWidth: STROKE_WIDTH,
+	                      stroke: CIRCLE_STROKE_COLOR,
+	                      strokeWidth: CIRCLE_STROKE_WIDTH,
 	                      fill: 'none'
 	})
       }

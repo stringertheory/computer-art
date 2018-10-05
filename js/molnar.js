@@ -13,22 +13,28 @@ function calculateHoleP (holes, x, y) {
 function redrawMolnar () {
 
   // Sets Math.random to a PRNG initialized using the given explicit seed.
-  // var seed = Math.floor(Math.random() * 10000);
-  var seed = 4697;
-  console.log(seed);
-  Math.seedrandom(seed);
+  // var seed = 4697;
+  // console.log(seed);
+  // Math.seedrandom(seed);
 
-  // Math.seedrandom('42');
   var SVG_ID = '#molnar-canvas'
-  var N_X = 37
-  var N_Y = 37
+  var N_X = 47
+  var N_Y = 47
   var STROKE_WIDTH = 0.07
-  var N_HOLES = 7
+  var N_HOLES = 9
   var MIN_R = 1
   var MAX_R = 6
+  // var BACKGROUND_COLOR = Snap.rgb()
+  var BACKGROUND_COLOR = chroma.hcl(90, 1, 99);
 
   var s = makeSVG(SVG_ID, N_X, N_Y)
 
+  s.rect(-1, -1, N_X + 2, N_Y + 2).attr({
+    fill: BACKGROUND_COLOR,
+    stroke: 'none'
+  })
+
+  
   var holes = []
   _.each(_.range(N_HOLES), function (i) {
     holes.push([
@@ -101,7 +107,7 @@ function redrawMolnar () {
           
 	})
 	line.transform(Snap.format('r{angle},{x_center},{y_center}', {
-      	  angle: 90 + (Math.random() - 0.5) * 360,
+      	  angle: 90 + (Math.random() - 0.5) * 135,
 	  // angle: 0,
       	  x_center: x + 0.5,
       	  y_center: y + 0.5
