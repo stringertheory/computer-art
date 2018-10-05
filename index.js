@@ -1,4 +1,4 @@
-import redraw from './js/noll.js';
+import redraw from './js/profile.js';
 import {makePNG} from './js/utils.js';
 
 function save() {
