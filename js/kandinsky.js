@@ -1,6 +1,8 @@
+import {makeSVG} from './utils.js';
+
 // http://www.wassilykandinsky.net/work-247.php
-function redrawKandinsky () {
-  var SVG_ID = '#kandinsky-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 11
   var N_Y = 11
   var DELTA = 0.1
@@ -109,4 +111,3 @@ function redrawKandinsky () {
   }
   
 }
-redrawKandinsky()

@@ -1,5 +1,7 @@
-function redrawMohr () {
-  var SVG_ID = '#mohr-canvas'
+import {makeSVG} from './utils.js';
+
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 8
   var N_Y = 8
   var STROKE_WIDTH = 0.02
@@ -69,4 +71,3 @@ function redrawMohr () {
     })
       })
 }
-redrawMohr()

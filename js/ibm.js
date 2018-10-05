@@ -1,7 +1,9 @@
+import {makeSVG} from './utils.js';
+
 // http://gooddesignisgoodbusiness.tumblr.com/post/81138299227/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
 
-function redrawIBM () {
-  var SVG_ID = '#ibm-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 5
   var N_Y = 5
   var STROKE_WIDTH = 0.0
@@ -29,6 +31,7 @@ function redrawIBM () {
 
       colors = _.shuffle(colors)
 
+      var back1;
       if (colors[0] == WHITE) {
         back1 = colors[1]
       } else if (colors[1] == WHITE) {
@@ -51,6 +54,7 @@ function redrawIBM () {
         fill: colors[1]
       }))
 
+      var back2;
       if (colors[2] == WHITE) {
         back2 = colors[3]
       } else if (colors[3] == WHITE) {
@@ -85,4 +89,3 @@ function redrawIBM () {
     })
   })
 }
-redrawIBM()

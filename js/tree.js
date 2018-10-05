@@ -1,3 +1,5 @@
+import {makeSVG} from './utils.js';
+
 function make_key(x, y, z) {
   return [x, y, z].join('.')
 }
@@ -16,11 +18,11 @@ function mark(x, y, z, lookup) {
   lookup[make_key(x, y, z)] = true
 }
 
-function redrawTree () {
+export default function redraw () {
 
   console.log('START tree')
   
-  var SVG_ID = '#tree-canvas'
+  var SVG_ID = '#canvas'
   var N_X = 13 * 5
   var N_Y = 13 * 5
   var STROKE_WIDTH = 2;
@@ -141,4 +143,3 @@ function redrawTree () {
   }
   
 }
-redrawTree()

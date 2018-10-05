@@ -1,3 +1,5 @@
+import {makeSVG} from './utils.js';
+
 function drawGroup(s, x, y, w, color, min, max) {
   var pad = 0.07;
   var n_squares = _.random(min, max);
@@ -18,8 +20,8 @@ function drawGroup(s, x, y, w, color, min, max) {
   })
 }
 
-function redrawBoxes () {
-  var SVG_ID = '#boxes-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 5
   var N_Y = 5
   var STROKE_WIDTH = 0.01
@@ -38,4 +40,3 @@ function redrawBoxes () {
     })
   })
 }
-redrawBoxes()

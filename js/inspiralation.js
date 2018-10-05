@@ -1,5 +1,7 @@
-function redrawInspiralation () {
-  var SVG_ID = '#inspiralation-canvas'
+import {makeSVG, jitter} from './utils.js';
+
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 50
   var N_Y = 50
   
@@ -47,8 +49,8 @@ function redrawInspiralation () {
   _.each(_.range(N_ELLIPSES), function (i) {
     var x = N_X / 2 - 0.5
     var y = N_Y / 2
-    rx = i / 2.2 + jitter(0.1)
-    ry = i / 2 + jitter(0.1)
+    var rx = i / 2.2 + jitter(0.1)
+    var ry = i / 2 + jitter(0.1)
     angle += jitter(2)
     var e = s.ellipse(x, y, rx, ry).attr({
       stroke: 'blue',
@@ -70,8 +72,8 @@ function redrawInspiralation () {
   _.each(_.range(N_ELLIPSES), function (i) {
     var x = N_X / 2 + 0.5 + jitter(0.1)
     var y = N_Y / 2 + jitter(0.1)
-    rx = i / 2 + jitter(0.05)
-    ry = i / 2.2 + jitter(0.05)
+    var rx = i / 2 + jitter(0.05)
+    var ry = i / 2.2 + jitter(0.05)
     angle += jitter(2)
     var e = s.ellipse(x, y, rx, ry).attr({
       stroke: 'red',
@@ -89,4 +91,3 @@ function redrawInspiralation () {
   })
     
 }
-redrawInspiralation()

@@ -1,3 +1,5 @@
+import {makeSVG, jitter} from './utils.js';
+
 function make_key(x, y, z) {
   return [x, y, z].join('.')
 }
@@ -16,11 +18,11 @@ function mark(x, y, z, lookup) {
   lookup[make_key(x, y, z)] = true
 }
 
-function redrawTree () {
+export default function redraw () {
 
   console.log('START tree')
   
-  var SVG_ID = '#tree-canvas'
+  var SVG_ID = '#canvas'
   var N_X = 13
   var N_Y = 13
   var N_Z = 13
@@ -60,12 +62,12 @@ function redrawTree () {
       ])
       mark(x, y, z, visited)
 
-      new_x = x + _.sample([-1, 0, 1])
-      new_y = y + _.sample([-1, 0, 1])
+      var new_x = x + _.sample([-1, 0, 1])
+      var new_y = y + _.sample([-1, 0, 1])
       if (Math.random() < 0.9) {
-        new_z = z + 1
+        var new_z = z + 1
       } else {
-        new_z = z
+        var new_z = z
       }
       while (is_visited(new_x, new_y, new_z, visited, N_X - 1, N_Y - 1)) {
         new_x = x + _.sample([-1, 0, 1])
@@ -108,4 +110,3 @@ function redrawTree () {
     n_dots += 1
   }
 }
-redrawTree()

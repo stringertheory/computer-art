@@ -1,3 +1,5 @@
+import {makeSVG} from './utils.js';
+
 function drawOne(s, x, y) {
   // var r = s.rect(x, y, 1, 1).attr({
   //   stroke: 'black',
@@ -32,8 +34,8 @@ function drawOne(s, x, y) {
   })
 }
 
-function redrawWebs () {
-  var SVG_ID = '#webs-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 7
   var N_Y = 7
   var STROKE_WIDTH = 0.01
@@ -47,4 +49,3 @@ function redrawWebs () {
     })
   })
 }
-redrawWebs()

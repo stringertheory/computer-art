@@ -1,3 +1,5 @@
+import {makeSVG} from './utils.js';
+
 function randomColor() {
   var h = 360 * Math.random()
   var s = 0.5 * 100
@@ -22,8 +24,8 @@ function convertToPath(points) {
 
 
 // http://www.wassilykandinsky.net/work-247.php
-function redrawRand () {
-  var SVG_ID = '#rand-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 40
   var N_Y = N_X * 1.33 //(Math.sqrt(5) + 1) / 2
   var DELTA = 0.1
@@ -117,4 +119,3 @@ function redrawRand () {
 
   
 }
-redrawRand()

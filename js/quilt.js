@@ -1,3 +1,5 @@
+import {makeSVG, jitter} from './utils.js';
+
 // http://simoncpage.co.uk/blog/2009/08/random-dance-geometric-poster-designs/
 // http://www.pbase.com/brownsf/amish_quilts
 // http://www.pbase.com/brownsf/image/84992170
@@ -16,8 +18,8 @@ function compliment(color) {
   return chroma.hcl(h, c, l).hex()
 }
 
-function redrawQuilt () {
-  var SVG_ID = '#quilt-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 10
   var N_Y = 10
   
@@ -125,4 +127,3 @@ function redrawQuilt () {
     })
   })
 }
-redrawQuilt()

@@ -1,6 +1,9 @@
-http://gooddesignisgoodbusiness.tumblr.com/post/81138717065/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
-function redrawRibbons () {
-  var SVG_ID = '#ribbons-canvas'
+import {makeSVG} from './utils.js';
+
+// http://gooddesignisgoodbusiness.tumblr.com/post/81138717065/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
+
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 11
   var N_Y = 11
   var DELTA = 0.1
@@ -59,4 +62,3 @@ function redrawRibbons () {
     })
   })
 }
-redrawRibbons()

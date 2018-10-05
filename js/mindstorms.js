@@ -1,3 +1,5 @@
+import {makeSVG} from './utils.js';
+
 function randomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -59,9 +61,9 @@ function overlap (shapes, x, y, n, max) {
   }
 }
 
-function redrawMindstorms () {
+export default function redraw () {
 
-  var SVG_ID = '#mindstorms-canvas'
+  var SVG_ID = '#canvas'
   var N_X = 10
   var N_Y = 10
   var N_FLOWERS = 100;
@@ -88,4 +90,3 @@ function redrawMindstorms () {
   }
   
 }
-redrawMindstorms()

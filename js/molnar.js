@@ -1,3 +1,5 @@
+import {makeSVG} from './utils.js';
+
 function calculateHoleP (holes, x, y) {
   var result = 0
   _.each(holes, function (hole) {
@@ -10,14 +12,14 @@ function calculateHoleP (holes, x, y) {
   return result
 }
 
-function redrawMolnar () {
+export default function redraw () {
 
   // Sets Math.random to a PRNG initialized using the given explicit seed.
   // var seed = 4697;
   // console.log(seed);
   // Math.seedrandom(seed);
 
-  var SVG_ID = '#molnar-canvas'
+  var SVG_ID = '#canvas'
   var N_X = 47
   var N_Y = 47
   var STROKE_WIDTH = 0.07
@@ -117,4 +119,3 @@ function redrawMolnar () {
       })
     console.log('n points:', n_points)
 }
-redrawMolnar()

@@ -1,5 +1,7 @@
-function redrawNoll () {
-  var SVG_ID = '#noll-canvas'
+import {makeSVG} from './utils.js';
+
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 42
   var N_Y = 42
   var STROKE_WIDTH = 0.4
@@ -34,4 +36,3 @@ function redrawNoll () {
     })
   })
 }
-redrawNoll()

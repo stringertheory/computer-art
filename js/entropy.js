@@ -1,4 +1,6 @@
-http://gooddesignisgoodbusiness.tumblr.com/post/81138625150/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
+import {makeSVG} from './utils.js';
+
+// http://gooddesignisgoodbusiness.tumblr.com/post/81138625150/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
 
 function shuffle (array, n_swaps) {
   var swaps = 0
@@ -12,8 +14,8 @@ function shuffle (array, n_swaps) {
   }
 }
 
-function redrawEntropy () {
-  var SVG_ID = '#entropy-canvas'
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 51
   var N_Y = 121
   var STROKE_WIDTH = 0.0
@@ -58,4 +60,3 @@ function redrawEntropy () {
     })
   })
 }
-redrawEntropy()
