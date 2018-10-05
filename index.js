@@ -1,4 +1,4 @@
-import redraw from './js/kandinsky.js';
+import redraw from './js/noll.js';
 import {makePNG} from './js/utils.js';
 
 function save() {
@@ -9,7 +9,7 @@ function save() {
 
 function draw() {
   redraw();
-  save();
+  // save();
 }
 
 draw();
