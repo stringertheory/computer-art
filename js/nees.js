@@ -1,5 +1,7 @@
-function redrawNees () {
-  var SVG_ID = '#nees-canvas'
+import {makeSVG} from './utils.js';
+
+export default function redraw () {
+  var SVG_ID = '#canvas'
   var N_X = 12
   var N_Y = 24
   var STROKE_WIDTH = 0.05
@@ -24,4 +26,3 @@ function redrawNees () {
     })
   })
 }
-redrawNees()

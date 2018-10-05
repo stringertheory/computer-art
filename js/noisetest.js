@@ -1,3 +1,6 @@
+import {makeSVG, jitter} from './utils.js';
+import {noise} from './perlin.js';
+
 // TODO:
 // randomize mouth shape (slight smile versus straight) X
 // randomize mouth rotation (can be slightly askew) X
@@ -43,8 +46,8 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
   return points  
 }
 
-function redrawNoiseTest () {
-  var SVG_ID = '#noisetest-canvas'
+export default function redraw() {
+  var SVG_ID = '#canvas'
   var N_X = 5
   var N_Y = 5
   var N_POINTS = 36 * 2
@@ -164,4 +167,3 @@ function redrawNoiseTest () {
     
   
 }
-redrawNoiseTest()

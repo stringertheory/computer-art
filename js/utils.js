@@ -91,3 +91,9 @@ function download_as_file(filename, url) {
 function jitter(amount) {
   return amount * (Math.random() - 0.5);
 }
+
+module.exports = {
+  makeSVG: makeSVG,
+  makePNG: makePNG,
+  jitter: jitter
+}

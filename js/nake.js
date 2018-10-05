@@ -1,5 +1,7 @@
-function redrawNake () {
-  var SVG_ID = '#nake-canvas'
+import {makeSVG} from './utils.js';
+
+export default function redraw() {
+  var SVG_ID = '#canvas'
   var N_X = 12
   var N_Y = 12
   var STROKE_COLOR = 'black'
@@ -106,4 +108,3 @@ function redrawNake () {
     })
   })
 }
-redrawNake()

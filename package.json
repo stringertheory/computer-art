@@ -1,0 +1,27 @@
+{
+  "name": "computer-art",
+  "version": "1.0.0",
+  "description": "[Nees](https://en.wikipedia.org/wiki/Georg_Nees#Modern_generative_graphic_design), [Nake](https://en.wikipedia.org/wiki/Frieder_Nake), [Noll](https://en.wikipedia.org/wiki/A._Michael_Noll),  [Mohr](https://en.wikipedia.org/wiki/Manfred_Mohr), [Molnar](https://en.wikipedia.org/wiki/Vera_Moln%C3%A1r)",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./index.html --global main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stringertheory/computer-art.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stringertheory/computer-art/issues"
+  },
+  "homepage": "https://github.com/stringertheory/computer-art#readme",
+  "dependencies": {
+    "nunjucks": "^3.1.3",
+    "parcel-bundler": "^1.10.1",
+    "parcel-plugin-nunjucks": "git://github.com/chocolateboy/parcel-plugin-nunjucks.git#rcfile-etc",
+    "sass": "^1.14.1",
+    "utils.js": "^1.0.1"
+  }
+}
