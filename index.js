@@ -1,9 +1,20 @@
-import redraw from './js/ribbons.js';
+import redraw from './js/kandinsky.js';
 import {makePNG} from './js/utils.js';
 
-redraw()
+function save() {
+  _.each(document.getElementsByTagName("svg"), function(svg) {
+    makePNG(svg.id);
+  });
+}
+
+function draw() {
+  redraw();
+  save();
+}
+
+draw();
 
 module.exports = {
-  redraw: redraw,
-  makePNG: makePNG
+  draw: draw,
+  download: makePNG
 };
