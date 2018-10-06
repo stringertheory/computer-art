@@ -44,7 +44,7 @@ function dataURItoBlob(dataURI) {
   return blob;
 }
 
-function makePNG(svg_id) {
+function makePNG(svg_id, label) {
   if (svg_id[0] === '#') {
     var svg_id = svg_id.split('#')[1];
   }
@@ -54,7 +54,7 @@ function makePNG(svg_id) {
       var image = data.replace("image/png", "image/octet-stream");
 
       var hash = md5(image).substring(0, 6)
-      var filename = 'computer-art-' + svg_id.split('-')[0] + '-' + hash;
+      var filename = 'computer-art-' + label + '-' + hash;
       var png_filename = filename + ".png";
       var svg_filename = filename + ".svg";
 
@@ -62,10 +62,10 @@ function makePNG(svg_id) {
       var blobUrl = URL.createObjectURL(blob);
       download_as_file(png_filename, blobUrl);
 
-      var svgString = (new XMLSerializer()).serializeToString(svg);
-      var svgUrl = 'data:text/plain;charset=utf-8,';
-      svgUrl += encodeURIComponent(svgString);
-      download_as_file(svg_filename, svgUrl);
+      // var svgString = (new XMLSerializer()).serializeToString(svg);
+      // var svgUrl = 'data:text/plain;charset=utf-8,';
+      // svgUrl += encodeURIComponent(svgString);
+      // download_as_file(svg_filename, svgUrl);
 
       // var a = document.createElement('a');
       // a.download = png_filename;

@@ -1,9 +1,11 @@
-import redraw from './js/profile.js';
 import {makePNG} from './js/utils.js';
+
+var sketch_name = 'wright';
+import redraw from './js/wright.js';
 
 function save() {
   _.each(document.getElementsByTagName("svg"), function(svg) {
-    makePNG(svg.id);
+    makePNG(svg.id, sketch_name);
   });
 }
 
