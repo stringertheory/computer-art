@@ -17,3 +17,17 @@ svg {
 .canvas-container {
     padding-bottom: 40px;
 }
+.background-circle {
+  mix-blend-mode: hard-light;
+}
+.tail {
+  opacity: 1;
+  /* mix-blend-mode: multiply; */
+}
+/* rect { */
+/*   mix-blend-mode: multiply; */
+/* } */
+/* overlay, lighten, hard-light, soft-light */
+
+/* normal | multiply | screen | overlay | darken | lighten | color-dodge |color-burn | hard-light | soft-light | difference | exclusion | hue |  */
+/* saturation | color | luminosity */
