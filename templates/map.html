@@ -1,0 +1,11 @@
+{% extends "sketch.html" %}
+
+{% block title %}Generative Kandinsky{% endblock %}
+
+{% block description %}
+<p>Inspired by Wassily Kandinsky&#8217;s <span class="title">Circles in a Circle</span>, 1923</p>
+{% endblock %}
+
+{% block sketch_script %}
+<script type="text/javascript" src={{ url_for('static', filename="js/kandinsky.js") }}></script>
+{% endblock %}

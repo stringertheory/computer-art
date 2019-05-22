@@ -1,0 +1,11 @@
+{% extends "sketch.html" %}
+
+{% block title %}Mohr{% endblock %}
+
+{% block description %}
+<p>Mohr</p>
+{% endblock %}
+
+{% block sketch_script %}
+<script type="text/javascript" src={{ url_for('static', filename="js/mohr.js") }}></script>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "sketch.html" %}
+
+{% block title %}Molnar{% endblock %}
+
+{% block description %}
+<p>Molnar</p>
+{% endblock %}
+
+{% block sketch_script %}
+<script type="text/javascript" src={{ url_for('static', filename="js/molnar.js") }}></script>
+{% endblock %}

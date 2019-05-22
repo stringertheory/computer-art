@@ -1,0 +1,11 @@
+{% extends "sketch.html" %}
+
+{% block title %}Wright Tile{% endblock %}
+
+{% block description %}
+<p>Wright Tile</p>
+{% endblock %}
+
+{% block sketch_script %}
+<script type="text/javascript" src={{ url_for('static', filename="js/wright_tile.js") }}></script>
+{% endblock %}

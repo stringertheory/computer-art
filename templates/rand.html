@@ -1,0 +1,11 @@
+{% extends "sketch.html" %}
+
+{% block title %}Rand{% endblock %}
+
+{% block description %}
+<p>Rand</p>
+{% endblock %}
+
+{% block sketch_script %}
+<script type="text/javascript" src={{ url_for('static', filename="js/rand.js") }}></script>
+{% endblock %}

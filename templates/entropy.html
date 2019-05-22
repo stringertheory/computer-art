@@ -1,0 +1,11 @@
+{% extends "sketch.html" %}
+
+{% block title %}Entropy{% endblock %}
+
+{% block description %}
+<p>Entropy</p>
+{% endblock %}
+
+{% block sketch_script %}
+<script type="text/javascript" src={{ url_for('static', filename="js/entropy.js") }}></script>
+{% endblock %}
