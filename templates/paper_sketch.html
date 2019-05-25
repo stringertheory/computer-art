@@ -17,7 +17,15 @@
 	<script type="text/javascript" src={{ url_for('static', filename="js/svg_todataurl.js") }}></script>
 	<script type="text/javascript" src={{ url_for('static', filename="js/perlin.js") }}></script>
 	<script type="text/javascript" src={{ url_for('static', filename="js/utils.js") }}></script>
-        {% block sketch_script %}{% endblock %}
+        <head>
+            <link rel="stylesheet" type="text/css" href={{ url_for('static', filename="css/paper_style.css") }}>
+            <script src={{ url_for('static', filename="js/paper/paper-full.min.js") }}></script>
+            <script src={{ url_for('static', filename="js/paper/jquery.min.js") }}></script>
+            <script src={{ url_for('static', filename="js/paper/underscore-min.js") }}></script>
+            <script src={{ url_for('static', filename="js/paper/d3.min.js") }}></script>
+            <script src={{ url_for('static', filename="js/paper/chroma.min.js") }}></script>
+            {% block sketch_script %}<script type="text/javascript" src={{ url_for('static', filename="js/watercolor.js") }}></script>{% endblock %}
+        </head>        
         <script defer>
          document.addEventListener('DOMContentLoaded', function() {
              window.onhashchange = regenerate;
@@ -33,9 +41,9 @@
 	<div id="wrap">
             <div class="container">
                 <div class="navigation"><a href="/"><i class="fas fa-arrow-left"></i> all sketches</a></div>
-		<svg id="canvas" {% block svg_attributes %}{% endblock %}></svg>
+                <canvas id="canvas" hidpi="off"></canvas>
 		<button onclick="window.location.hash = makeid(7)" class="button"><i class="fas fa-redo"></i> Regenerate</button>
-		<button onclick="download()" class="button"><i class="fas fa-arrow-down"></i> Download</button>
+		<button onclick="download_paper()" class="button"><i class="fas fa-arrow-down"></i> Download</button>
                 <h2>{% block title %}{% endblock %}</h2>
                 <div>
                     {% block byline %}

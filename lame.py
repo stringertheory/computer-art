@@ -1,17 +1,6 @@
 from flask import Flask, render_template, abort
 app = Flask(__name__)
 
-# boxes.js 	entropy.js 	face.json 	fonts/
-# ibm.js 	inspiralation.js 	kandinsky.js 	lib/
-# logo.pdf 	logo.png 	map.js 	mindstorms.js
-# mohr.js 	molnar.js 	nake.js 	nees.js
-# nest-transparent.jpg 	nest-transparent.png 	noisetest.js 	noll.js
-# perlin.js 	profile.js 	quilt.js 	rand.js
-# result.png 	ribbons.js 	save.js 	streya.js
-# streya.js~ 	svg_todataurl.js 	texture-1.js 	texture-1.js~
-# tree.js 	tree2.js 	utils.js 	webs.js
-# wright.js 	wright.js~ 	wright_tile.js 	wright_tile.js~
-
 SKETCHES = {
     'boxes': 'boxes.html',
     'ibm': 'ibm.html',
@@ -36,6 +25,7 @@ SKETCHES = {
     'rand': 'rand.html',
     'streya': 'streya.html',
     'webs': 'webs.html',
+    'watercolor': 'paper_sketch.html'
 }
 
 @app.route('/')
@@ -46,7 +36,7 @@ def index():
 def sketch(slug):
     template = SKETCHES.get(slug)
     if template:
-        return render_template(template, slug=slug)
+        return render_template(template, slug=slug, next='boxes')
     else:
         abort(404)
         

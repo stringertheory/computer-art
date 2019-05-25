@@ -32,11 +32,15 @@ function petal(svg, x, y, length, angle) {
   return g;
 }
 
-function flower(svg, x, y, radius, nPetals, angleOffset) {
+function flower(svg, x, y, radius, color, nPetals, angleOffset) {
   var g = svg.g();
-  var color = chroma.random();
   _.each(_.range(nPetals), function (i) {
     var angle = 2 * Math.PI * i / nPetals + angleOffset;
+    // g.add(svg.line(x, y, x, 10000).attr({
+    //   stroke: 'green',
+    //   strokeWidth: 0.01,
+    //   strokeOpacity: 0.1
+    // }));
     var p = petal(svg, x, y, radius, angle);
     p.attr({
       fill: color,
@@ -66,12 +70,13 @@ function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 10
   var N_Y = 10
-  var N_FLOWERS = 100;
-  var MAX_TRIES = 100;
+  var N_FLOWERS = 42;
+  var MAX_TRIES = 0;
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y)
 
+  var base_color = chroma.random();
   var flowers = [];
   var nFlowers = 0;
   while (nFlowers < N_FLOWERS) {
@@ -85,7 +90,11 @@ function regenerate () {
     var angleOffset = Math.random() * 2 * Math.PI;
     var nPetals = randomInt(5, 13);
     var radius = 0.25 + 0.5 * Math.random();
-    flowers.push(flower(s, x, y, radius, nPetals, angleOffset));
+    var color = base_color;
+    if (Math.random() < 0.5) {
+      color = compliment(base_color);
+    }
+    flowers.push(flower(s, x, y, radius, color, nPetals, angleOffset));
     nFlowers += 1;
   }
   

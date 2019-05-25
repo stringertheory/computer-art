@@ -78,9 +78,9 @@ function download(svg_id='#canvas') {
       var image = data.replace("image/png", "image/octet-stream");
 
       var hash_pre = md5(image)
-      console.log(hash_pre);
+      console.log(hash_pre, window.location.pathname);
       var hash = hash_pre.substring(0, 6)
-      var filename = 'generative-kandinksy-' + svg_id.split('-')[0] + '-' + hash;
+      var filename = window.location.pathname + window.location.hash + '-' + hash;
       var png_filename = filename + ".png";
       var svg_filename = filename + ".svg";
 
@@ -94,6 +94,19 @@ function download(svg_id='#canvas') {
       download_as_file(svg_filename, svgUrl);
     }
   });
+}
+
+function download_paper(id='#canvas') {
+  if (id[0] === '#') {
+    var id = id.split('#')[1];
+  }
+  var canvas = document.getElementById(id);
+  var hash_pre = md5(canvas)
+  console.log(hash_pre, window.location.pathname);
+  var hash = hash_pre.substring(0, 6)
+  var filename = window.location.pathname + window.location.hash + '-' + hash;
+  var png_filename = filename + ".png";
+  download_as_file(png_filename, canvas.toDataURL());
 }
 
 function download_as_file(filename, url) {
@@ -136,3 +149,12 @@ function makeid(length) {
    return result;
 }
 
+function compliment(color, angle) {
+  if (angle === undefined) {
+    angle = 180;
+  }
+  var h = color.hcl()[0] + angle
+  var c = color.hcl()[1]
+  var l = 0.5 * ((100 - color.hcl()[2]) + color.hcl()[2])
+  return chroma.hcl(h, c, l).hex()
+}

@@ -11,31 +11,30 @@ function rando() {
   return chroma.hcl(h, c, l)
 }
 
-function compliment(color) {
-  var h = color.hcl()[0] + 180
-  var c = color.hcl()[1]
-  var l = 0.5 * ((100 - color.hcl()[2]) + color.hcl()[2])
-  return chroma.hcl(h, c, l).hex()
-}
-
 function regenerate () {
   var SVG_ID = '#canvas'
-  var N_X = 10
-  var N_Y = 10
+  var N_X = 9
+  var N_Y = 9
   
   // make an svg with a viewbox
   var s = makeSVG(N_X, N_Y)
 
   var color1 = rando()
+  // var color1 = chroma.random()
+  // var color2 = chroma.random()
   var colors = [
     color1.hex(),
-    compliment(color1)
+    compliment(color1, 180),
+    // compliment(color1, 240),
+    // color2.hex(),
+    // compliment(color2, 120),
+    // compliment(color2, 240)
   ]
   // var colors = [
   //   chroma.blend('0000ff', '0000aa', 'multiply').hex(),
   //   chroma.blend('red', 'blue', 'darken').hex()
   // ]
-  // var colors = _.map(_.range(2), function (i) {
+  // var colors = _.map(_.range(3), function (i) {
   //   return chroma.random().hex()
   // })
   // var colors = chroma.scale([chroma.random(), chroma.random()]).colors(7)

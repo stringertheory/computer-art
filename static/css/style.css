@@ -9,14 +9,30 @@ body {
     margin: 0 auto;
 }
 #canvas {
-  width: 100%;
+  width: 500px;
+  /* min-height: 500px; */
+  border: 0px solid #eee;
+  margin-bottom: 17px;
 }
-svg {
-    border: 0px solid #eee;
-    margin-bottom: 17px;
+.navigation {
+  height: 68px;
+  line-height: 68px;
+  font-family: Merriweather, serif;
+  font-weight: 400;
+}
+.navigation > a:link, .navigation > a:visited  {
+  color: #ddd;
+}
+.navigation > a:hover {
+  color: #999;
+}
+.navigation > a:active {
+  color: black;
 }
 .container {
-  margin: 34px;
+  margin-left: 34px;
+  margin-right: 34px;
+  margin-bottom: 34px;
 }
 @page { 
   margin: 0.5in;
@@ -50,7 +66,7 @@ svg {
 }
 h2 {
   font-family: 'Merriweather', serif;
-  font-weight: 700;
+  font-weight: 900;
   padding-top: 17px;
   font-style: italic;
 }
