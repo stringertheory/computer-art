@@ -61,7 +61,7 @@ function overlap (shapes, x, y, n, max) {
   }
 }
 
-export default function redraw () {
+function regenerate () {
 
   var SVG_ID = '#canvas'
   var N_X = 10

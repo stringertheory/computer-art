@@ -3,3 +3,5 @@ shapely
 boltons
 svg.path
 pycodestyle
+flask
+Frozen-Flask

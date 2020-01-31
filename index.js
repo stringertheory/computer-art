@@ -1,7 +1,7 @@
 import {makePNG} from './js/utils.js';
 
-var sketch_name = 'wright';
-import redraw from './js/wright.js';
+var sketch_name = 'wright_tile';
+import redraw from './js/wright_tile.js';
 
 function save() {
   _.each(document.getElementsByTagName("svg"), function(svg) {
@@ -18,5 +18,5 @@ draw();
 
 module.exports = {
   draw: draw,
-  download: makePNG
+  save: save
 };

@@ -46,7 +46,7 @@ function mouthline(x0, y0, width, height, n_points, jitter) {
   return points  
 }
 
-export default function redraw() {
+function regenerate() {
   var SVG_ID = '#canvas'
   var N_X = 5
   var N_Y = 5

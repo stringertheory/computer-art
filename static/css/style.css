@@ -10,7 +10,7 @@ body {
 }
 #canvas {
   width: 500px;
-  /* min-height: 500px; */
+  min-height: 500px;
   border: 0px solid #eee;
   margin-bottom: 17px;
 }

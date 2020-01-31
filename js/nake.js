@@ -1,6 +1,6 @@
 import {makeSVG} from './utils.js';
 
-export default function redraw() {
+function regenerate() {
   var SVG_ID = '#canvas'
   var N_X = 12
   var N_Y = 12

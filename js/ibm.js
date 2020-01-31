@@ -2,7 +2,7 @@ import {makeSVG} from './utils.js';
 
 // http://gooddesignisgoodbusiness.tumblr.com/post/81138299227/the-cognitivie-puzzles-ogilvy-campaign-for-ibm
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 5
   var N_Y = 5

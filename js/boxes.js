@@ -20,7 +20,7 @@ function drawGroup(s, x, y, w, color, min, max) {
   })
 }
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 5
   var N_Y = 5

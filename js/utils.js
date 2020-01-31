@@ -1,4 +1,4 @@
-var FRAME_FACTOR = 20
+var FRAME_FACTOR = 10
 
 function makeSVG(id, n_x, n_y) {
   var s = Snap(id)
@@ -62,10 +62,10 @@ function makePNG(svg_id, label) {
       var blobUrl = URL.createObjectURL(blob);
       download_as_file(png_filename, blobUrl);
 
-      // var svgString = (new XMLSerializer()).serializeToString(svg);
-      // var svgUrl = 'data:text/plain;charset=utf-8,';
-      // svgUrl += encodeURIComponent(svgString);
-      // download_as_file(svg_filename, svgUrl);
+      var svgString = (new XMLSerializer()).serializeToString(svg);
+      var svgUrl = 'data:text/plain;charset=utf-8,';
+      svgUrl += encodeURIComponent(svgString);
+      download_as_file(svg_filename, svgUrl);
 
       // var a = document.createElement('a');
       // a.download = png_filename;
@@ -92,8 +92,26 @@ function jitter(amount) {
   return amount * (Math.random() - 0.5);
 }
 
+function convertToPath(points) {
+  var path = '';
+  _.each(points, function (point, index) {
+    var x = point[0]
+    var y = point[1]
+    if (index === 0) {
+      path += 'M' + x + ',' + y + ' R'
+    } else if (index === points.length - 1) {
+      path += x + ',' + y
+    } else {
+      path += x + ',' + y + ','
+    }
+  })
+  return path;
+}
+
 module.exports = {
   makeSVG: makeSVG,
   makePNG: makePNG,
-  jitter: jitter
+  jitter: jitter,
+  convertToPath: convertToPath
 }
+

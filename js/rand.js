@@ -1,4 +1,4 @@
-import {makeSVG} from './utils.js';
+import {makeSVG, convertToPath} from './utils.js';
 
 function randomColor() {
   var h = 360 * Math.random()
@@ -6,25 +6,9 @@ function randomColor() {
   var l = 0.6 * 100
   return chroma.hcl(h, s, l).hex()
 }
-function convertToPath(points) {
-  var path = '';
-  _.each(points, function (point, index) {
-    var x = point[0]
-    var y = point[1]
-    if (index === 0) {
-      path += 'M' + x + ',' + y + ' R'
-    } else if (index === points.length - 1) {
-      path += x + ',' + y
-    } else {
-      path += x + ',' + y + ','
-    }
-  })
-  return path;
-}
-
 
 // http://www.wassilykandinsky.net/work-247.php
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 40
   var N_Y = N_X * 1.33 //(Math.sqrt(5) + 1) / 2

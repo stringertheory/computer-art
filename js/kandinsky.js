@@ -1,7 +1,7 @@
 import {makeSVG} from './utils.js';
 
 // http://www.wassilykandinsky.net/work-247.php
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 11
   var N_Y = 11

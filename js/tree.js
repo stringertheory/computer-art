@@ -18,7 +18,7 @@ function mark(x, y, z, lookup) {
   lookup[make_key(x, y, z)] = true
 }
 
-export default function redraw () {
+function regenerate () {
 
   console.log('START tree')
   

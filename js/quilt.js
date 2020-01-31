@@ -18,7 +18,7 @@ function compliment(color) {
   return chroma.hcl(h, c, l).hex()
 }
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 10
   var N_Y = 10

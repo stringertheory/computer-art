@@ -1,6 +1,6 @@
 import {makeSVG, jitter} from './utils.js';
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 50
   var N_Y = 50

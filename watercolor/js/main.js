@@ -68,28 +68,39 @@ function randomColor() {
   return new Color(rgb[0], rgb[1], rgb[2]);
 }
 
-var nLayers = 30;
-var nSides = 6;
-var radius = 200;
+var nLayers = 42;
+var nSides = 7;
 var opacity = 1 / (nLayers + 1);
 var blend = 'lighten';
+var nPoints = 5;
+var hiddenRadius = 600;
 
 var pointList = [];
-_.each(_.range(10), function (i) {
+_.each(_.range(1), function (i) {
   var x = 0.5 * view.bounds.width * (1 - 2 * Math.random());
   var y = 0.5 * view.bounds.height * (1 - 2 * Math.random());
   var p = new Point(x, y);
   pointList.push(p);
 });
 
+var pointList = _.map(_.range(nPoints), function (i) {
+  var angle = i * (2 * Math.PI / nPoints);
+  var r = 2 * Math.PI * hiddenRadius / nPoints;
+  console.log(r, angle);
+  return new Point((0.25 * r * (1 + 3 * Math.random())) * Math.cos(angle), (0.25 * r * (1 + 3 * Math.random())) * Math.sin(angle));
+});
+
 // var pointList = [
-//   // new Point(-100, -50),
-//   // new Point(100, -50),
-//   new Point(0, 50),
-//   // new Point(300, -100),
-//   // new Point(-300, -100),
+//   new Point(-radius * 0.5 * (1 + Math.random()), 0),
+//   new Point(radius * 0.5 * (1 + Math.random()), 0),
+//   new Point(0, radius),
+//   new Point(300, -100),
+//   new Point(-300, -100),
 // ]
+console.log(pointList)
 var basePolygons = _.map(pointList, function (offset) {
+  var radius = 2 * hiddenRadius * Math.sin(Math.PI / nPoints)
+  // var radius = 10;
   var result = new Path.RegularPolygon({
     center: view.center + offset,
     sides: nSides,
@@ -98,13 +109,13 @@ var basePolygons = _.map(pointList, function (offset) {
     blendMode: blend,
     fillColor: randomColor()
   });
-  deform(result, 4);
+  deform(result, 1, 1.5, 0.25);
   return result;
 })
 
 _.each(_.range(nLayers * basePolygons.length), function (index) {
   var i = index % basePolygons.length;
-  deform(basePolygons[i].clone(), 3);
+  deform(basePolygons[i].clone(), 4, 1.5, 5);
 });
 
 // var logo = project.importSVG('js/IDEO_LOGO_2014_FINAL-white.svg', function (item) {

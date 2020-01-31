@@ -14,7 +14,7 @@ function shuffle (array, n_swaps) {
   }
 }
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 51
   var N_Y = 121

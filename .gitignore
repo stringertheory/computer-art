@@ -1,0 +1,6 @@
+dist/
+node_modules/
+p5/
+.cache/
+__pycache__/
+*IDEO_LOGO*

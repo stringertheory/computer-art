@@ -34,7 +34,7 @@ function drawOne(s, x, y) {
   })
 }
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
   var N_X = 7
   var N_Y = 7

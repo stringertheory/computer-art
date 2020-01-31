@@ -12,7 +12,7 @@ function calculateHoleP (holes, x, y) {
   return result
 }
 
-export default function redraw () {
+function regenerate () {
 
   // Sets Math.random to a PRNG initialized using the given explicit seed.
   // var seed = 4697;

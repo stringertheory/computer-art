@@ -4,19 +4,23 @@ import {makeSVG, jitter} from './utils.js';
 
 function make_gridpoints(n_x, n_y) {
 
+  var epsilon = 1 / 12;
+  
   var xs = [];
   var x = 0;
-  while (x < n_x) {
+  while (x < (n_x - epsilon)) {
     xs.push(x);
     x += _.random(1, 6) / 6;
   };
   
   var ys = [];
   var y = 0;
-  while (y < n_y) {
+  while (y < (n_y - epsilon)) {
     ys.push(y);
     y += _.random(2, 12) / 6;
   };
+
+  console.log(xs, ys)
   
   var gridpoints = [];
   _.each(xs, function(x, x_i) {
@@ -39,7 +43,15 @@ function make_gridpoints(n_x, n_y) {
       });
     });
   });
-  return gridpoints;
+
+  xs.push(n_x);
+  ys.push(n_y);
+
+  return {
+    xs: xs,
+    ys: ys,
+    gridpoints: gridpoints,
+  };
 }
 
 Snap.plugin(function(Snap, Element, Paper, global) {
@@ -51,10 +63,10 @@ Snap.plugin(function(Snap, Element, Paper, global) {
   };
 });
 
-export default function redraw () {
+function regenerate () {
   var SVG_ID = '#canvas'
-  var N_X = 11
-  var N_Y = 11
+  var N_X = 16;
+  var N_Y = 9;
   var N_SQUARES = N_X + N_Y;
 
   var BASE_COLOR = chroma.rgb(223,188,130);
@@ -65,16 +77,16 @@ export default function redraw () {
   var YELLOW = chroma.rgb(201,100,50);
   var GREEN = chroma.rgb(113,129,163);
 
-  // datascopey
-  BASE_COLOR = chroma('#DDDDDD');
-  BLUE = chroma.rgb(0, 142, 245);
-  PURPLE = chroma.rgb(255, 21, 171);
-  RED = chroma.rgb(0, 204, 102)//chroma.rgb(255, 96, 0);
-  ORANGE = chroma.rgb(255, 96, 0);
-  YELLOW = chroma.rgb(243, 237, 0);
-  GREEN = chroma.rgb(0, 204, 102);
+  // // datascopey
+  // BASE_COLOR = chroma('#DDDDDD');
+  // BLUE = chroma.rgb(0, 142, 245);
+  // PURPLE = chroma.rgb(255, 21, 171);
+  // RED = chroma.rgb(0, 204, 102)//chroma.rgb(255, 96, 0);
+  // ORANGE = chroma.rgb(255, 96, 0);
+  // YELLOW = chroma.rgb(243, 237, 0);
+  // GREEN = chroma.rgb(0, 204, 102);
 
-  // stainey
+  // // stainey
   // BASE_COLOR = chroma('white');
   // BLUE = chroma('white');
   // PURPLE = chroma('white');
@@ -83,7 +95,7 @@ export default function redraw () {
   // YELLOW = chroma('white');
   // GREEN = chroma('white');
   
-  var STROKE_DARKEN = 3;
+  var STROKE_DARKEN = 2;
   var STROKE_COLOR = BASE_COLOR.darken(STROKE_DARKEN);
   var STROKE_WIDTH = 0.03;
   var GRID_OPACITY = 5/6;
@@ -96,7 +108,7 @@ export default function redraw () {
   var CIRCLE_FILL = chroma('gold').darken(0.5);
   var TAIL_FILL = chroma('gold').darken(1);
 
-  var N_TEXTURE = 3000;//00;
+  var N_TEXTURE = 0;//3000;//00;
   var TEXTURE_COLOR = BASE_COLOR.brighten(2);
   var TEXTURE_WIDTH = 0.04;
   var TEXTURE_HEIGHT = 0.9;
@@ -109,8 +121,8 @@ export default function redraw () {
   // var seed = 1;
   // Math.seedrandom(seed);
 
-  var gridpoints = make_gridpoints(N_X, N_Y);
-
+  var grid = make_gridpoints(N_X, N_Y);
+  
   var square_colors = [
     BASE_COLOR,
     BASE_COLOR,
@@ -122,16 +134,31 @@ export default function redraw () {
     PURPLE,
     BLUE,
   ];
-  _.each(gridpoints, function(p) {
+  _.each(grid.gridpoints, function(p) {
     s.rect(p.x0, p.y0, p.width, p.height).attr({
       fill: _.sample(square_colors),
       // fill: 'white',
-      opacity: GRID_OPACITY,
+      // opacity: GRID_OPACITY,
+      fillOpacity: GRID_OPACITY,
       stroke: STROKE_COLOR,
       strokeWidth: STROKE_WIDTH,
     })
   });
 
+  _.each(grid.xs, function(x) {
+    s.line(x, 0, x, N_Y).attr({
+      stroke: 'black',
+      strokeWidth: STROKE_WIDTH,
+    })
+  });
+
+  _.each(grid.ys, function(y) {
+    s.line(0, y, N_X, y).attr({
+      stroke: 'black',
+      strokeWidth: STROKE_WIDTH,
+    })
+  });
+  
   var circle_colors = [
     RED,
     BLUE,
@@ -140,7 +167,7 @@ export default function redraw () {
   var clipper = s.rect(0, 0, N_X, N_Y)
   var circle_group = s.g()
   var circle_list = [];
-  _.each(gridpoints, function(p) {
+  _.each(grid.gridpoints, function(p) {
     if (Math.random() < CIRCLE_PROBABILITY) {
       var radius = p.width;
       var x = p.x0;
@@ -154,7 +181,8 @@ export default function redraw () {
       var circle = s.circle(x, y, radius).attr({
         fill: _.sample(circle_colors),
         // fill: 'none',
-        opacity: CIRCLE_OPACITY,
+        // opacity: CIRCLE_OPACITY,
+        fillOpacity: CIRCLE_OPACITY,
         stroke: STROKE_COLOR,
         strokeWidth: STROKE_WIDTH,
         class: 'background-circle'
@@ -243,6 +271,7 @@ export default function redraw () {
           fill: square.scale[j - 1],
           // fill: 'white',
           // opacity: TAIL_OPACITY,
+          fillOpacity: TAIL_OPACITY,
           stroke: STROKE_COLOR,
           strokeWidth: STROKE_WIDTH,
           class: 'tail',
@@ -271,6 +300,7 @@ export default function redraw () {
           s.rect(x, y, width, height).attr({
             fill: square.scale[1 + j % skip],
             // opacity: TAIL_OPACITY,
+            fillOpacity: TAIL_OPACITY,
             stroke: STROKE_COLOR,
             strokeWidth: STROKE_WIDTH,
             class: 'tail',
@@ -289,6 +319,7 @@ export default function redraw () {
         fill: square.scale[j - 1],
         // fill: 'white',
         // opacity: EYE_OPACITY,
+        fillOpacity: EYE_OPACITY,
         stroke: STROKE_COLOR,
         strokeWidth: STROKE_WIDTH,
         class: 'tail',

@@ -11,7 +11,7 @@ function square(angle) {
   return Math.min(1 / Math.abs(Math.cos(angle)), 1 / Math.abs(Math.sin(angle)));
 }
 
-export default function redraw () {
+function regenerate () {
 
   var SVG_ID = '#canvas'
   var N_X = 4
