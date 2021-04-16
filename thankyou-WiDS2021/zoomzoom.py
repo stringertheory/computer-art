@@ -1,9 +1,10 @@
 import statistics
-import sys
 import string
-import webvtt
+import sys
+
 import pronouncing
 import traces
+import webvtt
 
 PAUSE_PROPORTION = {
     '3': 5,
